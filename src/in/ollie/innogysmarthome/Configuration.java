@@ -164,10 +164,17 @@ public class Configuration {
 
     @Override
     public String toString() {
-        String simplifiedAccessToken = accessToken.substring(0, 10) + "..."
-                + accessToken.substring(accessToken.length() - 10);
-        String simplifiedRefreshToken = refreshToken.substring(0, 5) + "..."
-                + refreshToken.substring(refreshToken.length() - 5);
+        String simplifiedAccessToken = "";
+        String simplifiedRefreshToken = "";
+
+        if (accessToken != null) {
+            simplifiedAccessToken = accessToken.substring(0, 10) + "..."
+                    + accessToken.substring(accessToken.length() - 10);
+        }
+        if (refreshToken != null) {
+            simplifiedRefreshToken = refreshToken.substring(0, 5) + "..."
+                    + refreshToken.substring(refreshToken.length() - 5);
+        }
 
         return "Config [clientId=" + clientId + ", clientSecret=" + clientSecret + ", authCode=" + authCode
                 + ", accessToken=" + simplifiedAccessToken + ", refreshToken=" + simplifiedRefreshToken + "]";
