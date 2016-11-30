@@ -14,7 +14,7 @@ public class CapabilityState extends EntityState {
     public final static String STATE_NAME_MOTION_DETECTION_SENSOR = "MotionDetectedCount";
     public final static String STATE_NAME_LUMINANCE_SENSOR = "Luminance";
 
-    public boolean getVariableActuatorState() {
+    public Boolean getVariableActuatorState() {
         return getPropertyValueAsBoolean(STATE_NAME_VARIABLE_ACTUATOR);
     }
 
@@ -22,7 +22,7 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsBoolean(STATE_NAME_VARIABLE_ACTUATOR, on);
     }
 
-    public boolean getSwitchActuatorState() {
+    public Boolean getSwitchActuatorState() {
         return getPropertyValueAsBoolean(STATE_NAME_SWITCH_ACTUATOR);
     }
 
@@ -54,7 +54,7 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsDouble(STATE_NAME_HUMIDITY_SENSOR, humidity);
     }
 
-    public boolean getWindowDoorSensorState() {
+    public Boolean getWindowDoorSensorState() {
         return getPropertyValueAsBoolean(STATE_NAME_WINDOW_DOOR_SENSOR);
     }
 
@@ -62,7 +62,7 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsBoolean(STATE_NAME_WINDOW_DOOR_SENSOR, open);
     }
 
-    public boolean getSmokeDetectorSensorState() {
+    public Boolean getSmokeDetectorSensorState() {
         return getPropertyValueAsBoolean(STATE_NAME_SMOKE_DETECTOR_SENSOR);
     }
 
@@ -70,7 +70,7 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsBoolean(STATE_NAME_SMOKE_DETECTOR_SENSOR, on);
     }
 
-    public boolean getAlarmActuatorState() {
+    public Boolean getAlarmActuatorState() {
         return getPropertyValueAsBoolean(STATE_NAME_ALARM_ACTUATOR);
     }
 
@@ -78,7 +78,7 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsBoolean(STATE_NAME_ALARM_ACTUATOR, on);
     }
 
-    public double getMotionDetectionSensorState() {
+    public Double getMotionDetectionSensorState() {
         return getPropertyValueAsDouble(STATE_NAME_MOTION_DETECTION_SENSOR);
     }
 
@@ -86,7 +86,7 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsDouble(STATE_NAME_MOTION_DETECTION_SENSOR, numberOfMotions);
     }
 
-    public double getLuminanceSensorState() {
+    public Double getLuminanceSensorState() {
         return getPropertyValueAsDouble(STATE_NAME_LUMINANCE_SENSOR);
     }
 
