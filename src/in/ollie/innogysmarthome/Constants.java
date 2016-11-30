@@ -11,6 +11,8 @@ public class Constants {
     public final static String API_URL_UNINITIALIZE = API_URL_BASE + "/uninitialize";
 
     public final static String API_URL_DEVICE = API_URL_BASE + "/device";
+    public final static String API_URL_DEVICE_ID = API_URL_DEVICE + "/{id}";
+    public final static String API_URL_DEVICE_ID_STATE = API_URL_DEVICE_ID + "/state";
     public final static String API_URL_DEVICE_CAPABILITIES = API_URL_DEVICE + "/{id}/capabilities";
     public final static String API_URL_DEVICE_STATES = API_URL_DEVICE + "/states";
 

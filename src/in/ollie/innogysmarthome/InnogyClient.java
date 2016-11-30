@@ -38,12 +38,14 @@ import com.google.gson.JsonSyntaxException;
 
 import in.ollie.innogysmarthome.entity.Location;
 import in.ollie.innogysmarthome.entity.Message;
+import in.ollie.innogysmarthome.entity.Property;
 import in.ollie.innogysmarthome.entity.SHCInfo;
 import in.ollie.innogysmarthome.entity.action.Action;
 import in.ollie.innogysmarthome.entity.action.SetStateAction;
 import in.ollie.innogysmarthome.entity.capability.Capability;
 import in.ollie.innogysmarthome.entity.device.Device;
 import in.ollie.innogysmarthome.entity.link.CapabilityLink;
+import in.ollie.innogysmarthome.entity.link.Link;
 import in.ollie.innogysmarthome.entity.state.CapabilityState;
 import in.ollie.innogysmarthome.entity.state.DeviceState;
 import in.ollie.innogysmarthome.exception.ApiException;
@@ -444,6 +446,25 @@ public class InnogyClient {
     }
 
     /**
+     * Loads the {@link Device} with the given deviceId.
+     *
+     * @param deviceId
+     * @return
+     * @throws IOException
+     * @throws ApiException
+     */
+    public Device getDeviceById(String deviceId) throws IOException, ApiException {
+        logger.debug("Loading device with id {}...", deviceId);
+        HttpResponse response = executeGet(API_URL_DEVICE_ID.replace("{id}", deviceId));
+
+        handleResponseErrors(response);
+
+        Device device = response.parseAs(Device.class);
+
+        return device;
+    }
+
+    /**
      * Returns a {@link List} of all {@link Device}s with the full configuration details, {@link Capability}s and
      * states. Calling this may take a while...
      *
@@ -527,6 +548,86 @@ public class InnogyClient {
     }
 
     /**
+     * Returns the {@link Device} with the given deviceId with full configuration details, {@link Capability}s and
+     * states. Calling this may take a little bit longer...
+     *
+     * @param deviceId
+     * @return
+     * @throws IOException
+     * @throws ApiException
+     */
+    public Device getFullDeviceById(String deviceId) throws IOException, ApiException {
+        // LOCATIONS
+        List<Location> locationList = getLocations();
+        Map<String, Location> locationMap = new HashMap<>();
+        for (Location l : locationList) {
+            locationMap.put(l.getId(), l);
+        }
+
+        // CAPABILITIES FOR DEVICE
+        List<Capability> capabilityList = getCapabilitiesForDevice(deviceId);
+        Map<String, Capability> capabilityMap = new HashMap<>();
+        for (Capability c : capabilityList) {
+            capabilityMap.put(c.getId(), c);
+        }
+
+        // CAPABILITY STATES
+        List<CapabilityState> capabilityStateList = getCapabilityStates();
+        Map<String, CapabilityState> capabilityStateMap = new HashMap<String, CapabilityState>();
+        for (CapabilityState cs : capabilityStateList) {
+            capabilityStateMap.put(cs.getId(), cs);
+        }
+
+        // DEVICE STATE
+        List<Property> deviceStateList = getDeviceStatesByDeviceId(deviceId);
+        DeviceState deviceState = new DeviceState();
+        deviceState.setId(deviceId);
+        deviceState.setStateList(deviceStateList);
+
+        // MESSAGES
+        List<Message> messageList = getMessages();
+
+        List<Message> ml = new ArrayList<Message>();
+
+        for (Message m : messageList) {
+            if (m.getDeviceLinkList() != null && !m.getDeviceLinkList().isEmpty()) {
+                for (Link li : m.getDeviceLinkList()) {
+                    if (li.getValue().equals("/device/" + deviceId)) {
+                        ml.add(m);
+                    }
+                }
+            }
+        }
+
+        // DEVICE
+        Device d = getDeviceById(deviceId);
+
+        // location
+        d.setLocation(locationMap.get(d.getLocationId()));
+
+        // capabilities and their states
+        HashMap<String, Capability> deviceCapabilityMap = new HashMap<>();
+        for (CapabilityLink cl : d.getCapabilityLinkList()) {
+
+            Capability c = capabilityMap.get(cl.getId());
+            c.setCapabilityState(capabilityStateMap.get(c.getId()));
+            deviceCapabilityMap.put(c.getId(), c);
+
+        }
+        d.setCapabilityMap(deviceCapabilityMap);
+
+        // device states
+        d.setDeviceState(deviceState);
+
+        // messages
+        if (ml.size() > 0) {
+            d.setMessageList(ml);
+        }
+
+        return d;
+    }
+
+    /**
      * Loads the states for all {@link Device}s.
      *
      * @return
@@ -544,6 +645,28 @@ public class InnogyClient {
         List<DeviceState> deviceStateList = Arrays.asList(deviceStateArray);
 
         return deviceStateList;
+    }
+
+    /**
+     * Loads the device states for the given deviceId.
+     *
+     * @param deviceId
+     * @return
+     * @throws IOException
+     * @throws ApiException
+     */
+    public List<Property> getDeviceStatesByDeviceId(String deviceId) throws IOException, ApiException {
+        logger.debug("Loading device states for device id {}...", deviceId);
+
+        HttpResponse response = executeGet(API_URL_DEVICE_ID_STATE.replace("{id}", deviceId));
+
+        handleResponseErrors(response);
+
+        Property[] propertyArray = response.parseAs(Property[].class);
+        List<Property> propertyList = Arrays.asList(propertyArray);
+
+        return propertyList;
+
     }
 
     /**
