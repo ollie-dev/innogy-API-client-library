@@ -107,7 +107,14 @@ public abstract class PropertyList {
         Property p = getPropertyMap().get(propertyName);
         if (p != null) {
             Object value = p.getValue();
-            return Integer.parseInt(value.toString());
+            if (value instanceof Integer) {
+                return (Integer) value;
+            } else if (value instanceof Double) {
+                Double doubleValue = (Double) value;
+                return doubleValue.intValue();
+            } else if (value instanceof String) {
+                return Integer.parseInt(value.toString());
+            }
         }
         return null;
     }
