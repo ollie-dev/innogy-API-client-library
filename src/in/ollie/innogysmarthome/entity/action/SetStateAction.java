@@ -11,6 +11,7 @@ public class SetStateAction extends Action {
     public final static String ACTION_PARAMETER_SWITCHACTUATOR_ONSTATE = "OnState";
     public final static String ACTION_PARAMETER_VARIABLEACTUATOR_VALUE = "Value";
     public final static String ACTION_PARAMETER_THERMOSTATACTUATOR_POINTTEMPERATURE = "PointTemperature";
+    public final static String ACTION_PARAMETER_ALARMACTUATOR_ONSTATE = "OnState";
 
     /**
      * Constructs a new {@link SetStateAction}.
@@ -31,6 +32,9 @@ public class SetStateAction extends Action {
                     new Constant(state)));
         } else if (capabilityType.equals(Capability.TYPE_VARIABLEACTUATOR)) {
             parameterList.add(new ActionParameter(ACTION_PARAMETER_VARIABLEACTUATOR_VALUE, "/entity/Constant",
+                    new Constant(state)));
+        } else if (capabilityType.equals(Capability.TYPE_ALARMACTUATOR)) {
+            parameterList.add(new ActionParameter(ACTION_PARAMETER_ALARMACTUATOR_ONSTATE, "/entity/Constant",
                     new Constant(state)));
         }
         setParameterList(parameterList);
