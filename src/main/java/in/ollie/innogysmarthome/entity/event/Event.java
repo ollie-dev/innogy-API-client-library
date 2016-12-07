@@ -262,7 +262,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoDevice() {
         Link link = getLink();
         if (link != null) {
-            link.isTypeDevice();
+            return link.isTypeDevice();
         }
         return null;
     }
