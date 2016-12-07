@@ -437,4 +437,12 @@ public class Device extends ConfigPropertyList {
     public boolean isController() {
         return type.equals(DEVICE_TYPE_SHC);
     }
+
+    @Override
+    public String toString() {
+        String string = "Device [" + "id=" + getId() + " manufacturer=" + getManufacturer() + " version=" + getVersion()
+                + " product=" + getProduct() + " serialnumber=" + getSerialnumber() + " type=" + getType() + " name="
+                + getName() + "]";
+        return string;
+    }
 }
