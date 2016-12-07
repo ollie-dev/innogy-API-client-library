@@ -22,12 +22,6 @@ public class Event extends PropertyList {
     public final static String TYPE_DISCONNECT = "/event/Disconnect";
     public final static String TYPE_CONFIG_CHANGED = "device/SHC.RWE/1.0/event/ConfigChanged";
 
-    public final static String LINK_TYPE_CAPABILITY = "/capability/";
-    public final static String LINK_TYPE_DEVICE = "/device/";
-    public final static String LINK_TYPE_MESSAGE = "/message/";
-    public final static String LINK_TYPE_SHC = "/desc/device/SHC.RWE/";
-    public final static String LINK_TYPE_UNKNOWN = "unknown";
-
     public final static String EVENT_PROPERTY_CONFIGURATION_VERSION = "ConfigurationVersion";
 
     /**
@@ -180,7 +174,7 @@ public class Event extends PropertyList {
      */
     public String getLinkId() {
         String linkType = getLinkType();
-        if (linkType != null && !linkType.equals(LINK_TYPE_UNKNOWN) && !linkType.equals(LINK_TYPE_SHC)) {
+        if (linkType != null && !linkType.equals(Link.LINK_TYPE_UNKNOWN) && !linkType.equals(Link.LINK_TYPE_SHC)) {
             String linkValue = getLink().getValue();
             if (linkValue != null) {
                 return linkValue.replace(linkType, "");
@@ -197,18 +191,7 @@ public class Event extends PropertyList {
     public String getLinkType() {
         Link link = getLink();
         if (link != null) {
-            String linkValue = link.getValue();
-            if (linkValue.startsWith(LINK_TYPE_CAPABILITY)) {
-                return LINK_TYPE_CAPABILITY;
-            } else if (linkValue.startsWith(LINK_TYPE_DEVICE)) {
-                return LINK_TYPE_DEVICE;
-            } else if (linkValue.startsWith(LINK_TYPE_MESSAGE)) {
-                return LINK_TYPE_MESSAGE;
-            } else if (linkValue.startsWith(LINK_TYPE_SHC)) {
-                return LINK_TYPE_SHC;
-            } else {
-                return LINK_TYPE_UNKNOWN;
-            }
+            return link.getLinkType();
         }
         return null;
     }
@@ -266,8 +249,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoCapability() {
         Link link = getLink();
         if (link != null) {
-            String linkValue = link.getValue();
-            return linkValue.startsWith(LINK_TYPE_CAPABILITY);
+            return link.isTypeCapability();
         }
         return null;
     }
@@ -280,8 +262,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoDevice() {
         Link link = getLink();
         if (link != null) {
-            String linkValue = link.getValue();
-            return linkValue.startsWith(LINK_TYPE_DEVICE);
+            link.isTypeDevice();
         }
         return null;
     }
@@ -294,8 +275,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoMessage() {
         Link link = getLink();
         if (link != null) {
-            String linkValue = link.getValue();
-            return linkValue.startsWith(LINK_TYPE_DEVICE);
+            link.isTypeMessage();
         }
         return null;
     }
@@ -308,8 +288,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoSHC() {
         Link link = getLink();
         if (link != null) {
-            String linkValue = link.getValue();
-            return linkValue.startsWith(LINK_TYPE_SHC);
+            link.isTypeSHC();
         }
         return null;
     }
