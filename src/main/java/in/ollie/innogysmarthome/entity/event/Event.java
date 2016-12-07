@@ -21,8 +21,10 @@ public class Event extends PropertyList {
     public final static String TYPE_MESSAGE_DELETED = "device/SHC.RWE/1.0/event/MessageDeleted";
     public final static String TYPE_DISCONNECT = "/event/Disconnect";
     public final static String TYPE_CONFIG_CHANGED = "device/SHC.RWE/1.0/event/ConfigChanged";
+    public final static String TYPE_CONTROLLER_CONNECTIVITY_CHANGED = "device/SHC.RWE/1.0/event/ControllerConnectivityChanged";
 
     public final static String EVENT_PROPERTY_CONFIGURATION_VERSION = "ConfigurationVersion";
+    public final static String EVENT_PROPERTY_IS_CONNECTED = "IsConnected";
 
     /**
      * Specifies the type of the event. The type must be the full path to uniquely reference the event definition.
@@ -242,6 +244,15 @@ public class Event extends PropertyList {
     }
 
     /**
+     * Returns true, if the {@link Event} is a ControllerConnectivityChanged event.
+     *
+     * @return
+     */
+    public boolean isControllerConnectivityChangedEvent() {
+        return getType().equals(TYPE_CONTROLLER_CONNECTIVITY_CHANGED);
+    }
+
+    /**
      * Returns true, if the {@link Link} points to a {@link Capability}.
      *
      * @return
@@ -275,7 +286,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoMessage() {
         Link link = getLink();
         if (link != null) {
-            link.isTypeMessage();
+            return link.isTypeMessage();
         }
         return null;
     }
@@ -288,7 +299,7 @@ public class Event extends PropertyList {
     public Boolean isLinkedtoSHC() {
         Link link = getLink();
         if (link != null) {
-            link.isTypeSHC();
+            return link.isTypeSHC();
         }
         return null;
     }
@@ -312,5 +323,19 @@ public class Event extends PropertyList {
      */
     public Integer getConfigurationVersion() {
         return getPropertyValueAsInteger(EVENT_PROPERTY_CONFIGURATION_VERSION);
+    }
+
+    /**
+     * Returns the isConnected {@link Property} value. Only available for event of type ControllerConnectivityChanged
+     *
+     * @return {@link Boolean} or <code>null</code>, if {@link Property} is not available or {@link Event} is not of
+     *         type ControllerConnectivityChanged.
+     */
+    public Boolean getIsConnected() {
+        if (!isControllerConnectivityChangedEvent()) {
+            return null;
+        } else {
+            return getPropertyValueAsBoolean(EVENT_PROPERTY_IS_CONNECTED);
+        }
     }
 }
