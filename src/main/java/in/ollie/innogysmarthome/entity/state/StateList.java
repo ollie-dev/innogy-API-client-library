@@ -37,6 +37,9 @@ public abstract class StateList extends PropertyList {
     protected static final String STATE_NAME_MEMORYLOAD = "MemoryLoad";
     protected static final String STATE_NAME_CPULOAD = "CPULoad";
 
+    protected static final String DEVICE_INCLUSION_STATE_INCLUDED = "Included";
+    protected static final String DEVICE_INCLUSION_STATE_PENDING = "InclusionPending";
+
     /**
      * This represents a container of all configuration properties.
      *
@@ -121,5 +124,66 @@ public abstract class StateList extends PropertyList {
      */
     public Boolean getIsReachable() {
         return getPropertyValueAsBoolean(STATE_NAME_ISREACHABLE);
+    }
+
+    /**
+     * Returns the device inclusion state.
+     *
+     * @return
+     */
+    public String getDeviceInclusionState() {
+        return getPropertyValueAsString(STATE_NAME_DEVICEINCLUSIONSTATE);
+    }
+
+    /**
+     * Returns true, if the device is included.
+     *
+     * @return
+     */
+    public Boolean deviceIsIncluded() {
+        return getDeviceInclusionState().equals(DEVICE_INCLUSION_STATE_INCLUDED);
+    }
+
+    /**
+     * Returns true, if the device inclusion state is "pending".
+     *
+     * @return
+     */
+    public Boolean deviceInclusionIsPending() {
+        return getDeviceInclusionState().equals(DEVICE_INCLUSION_STATE_PENDING);
+    }
+
+    /**
+     * Returns the String of the available Update or an empty {@link String} if none.
+     *
+     * @return
+     */
+    public String getUpdateAvailable() {
+        return getPropertyValueAsString(STATE_NAME_UPDATEAVAILABLE);
+    }
+
+    /**
+     * Return the {@link DateTime} of the last reboot.
+     *
+     * @return
+     */
+    public DateTime getLastReboot() {
+        String time = getPropertyValueAsString(STATE_NAME_LASTREBOOT);
+        if (time == null) {
+            return null;
+        } else {
+            return Util.convertZuluTimeStringToDate(time);
+        }
+    }
+
+    /**
+     * Returns the config version of the smarthome setup.
+     *
+     * The config version changes everytime, the configuration on the controller is changed and saved.
+     * 
+     * @return
+     */
+    public Integer getConfigVersion() {
+        return getPropertyValueAsInteger(STATE_NAME_CONFIGVERSION);
     }
 }
