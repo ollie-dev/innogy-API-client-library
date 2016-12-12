@@ -285,13 +285,16 @@ public class InnogyClient {
      * @throws ApiException
      */
     private void handleResponseErrors(HttpResponse response) throws IOException, ApiException {
+        String content = "";
+
         if (response.getStatusCode() == HttpStatusCodes.STATUS_CODE_OK) {
             logger.debug("Statuscode is OK.");
             return;
         } else {
             logger.debug("Statuscode is NOT OK: " + response.getStatusCode());
             try {
-                String content = org.apache.commons.io.IOUtils.toString(response.getContent());
+                content = org.apache.commons.io.IOUtils.toString(response.getContent());
+                logger.trace("Response error content: {}", content);
                 ErrorResponse error = gson.fromJson(content, ErrorResponse.class);
 
                 if (error == null) {
@@ -320,7 +323,7 @@ public class InnogyClient {
                         throw new ApiException("Unknown error: " + error.toString());
                 }
             } catch (JsonSyntaxException e) {
-                throw new ApiException("Invalid JSON syntax in error response: " + e.getMessage());
+                throw new ApiException("Invalid JSON syntax in error response: " + content);
             }
         }
 
