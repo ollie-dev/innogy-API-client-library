@@ -13,6 +13,7 @@ public class SetStateAction extends Action {
     public final static String ACTION_PARAMETER_THERMOSTATACTUATOR_POINTTEMPERATURE = "PointTemperature";
     public final static String ACTION_PARAMETER_THERMOSTATACTUATOR_OPERATIONMODE = "OperationMode";
     public final static String ACTION_PARAMETER_ALARMACTUATOR_ONSTATE = "OnState";
+    public final static String ACTION_PARAMETER_DIMMERACTUATOR_VALUE = "Value";
 
     /**
      * Constructs a new {@link SetStateAction}.
@@ -45,7 +46,8 @@ public class SetStateAction extends Action {
      * Constructs a new {@link SetStateAction}.
      *
      * @param capabilityId String of the 32 character capability id
-     * @param capabilityType the type of the {@link Capability}, {@link Capability#TYPE_THERMOSTATACTUATOR}
+     * @param capabilityType the type of the {@link Capability}, {@link Capability#TYPE_THERMOSTATACTUATOR} or
+     *            {@link Capability#TYPE_DIMMERACTUATOR}
      * @param newValue the new double value
      */
     public SetStateAction(String capabilityId, String capabilityType, double newValue) {
@@ -57,6 +59,9 @@ public class SetStateAction extends Action {
         if (capabilityType.equals(Capability.TYPE_THERMOSTATACTUATOR)) {
             parameterList.add(new ActionParameter(ACTION_PARAMETER_THERMOSTATACTUATOR_POINTTEMPERATURE,
                     "/entity/Constant", new Constant(newValue)));
+        } else if (capabilityType.equals(Capability.TYPE_DIMMERACTUATOR)) {
+            parameterList.add(new ActionParameter(ACTION_PARAMETER_DIMMERACTUATOR_VALUE, "/entity/Constant",
+                    new Constant(newValue)));
         }
         setParameterList(parameterList);
     }

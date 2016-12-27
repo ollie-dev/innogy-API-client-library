@@ -350,6 +350,25 @@ public class InnogyClient {
     }
 
     /**
+     * Sets the dimmer level of a DimmerActuator.
+     *
+     * @param capabilityId
+     * @param dimLevel
+     * @throws IOException
+     * @throws ApiException
+     */
+    public void setDimmerActuatorState(String capabilityId, double dimLevel) throws IOException, ApiException {
+        Action action = new SetStateAction(capabilityId, Capability.TYPE_DIMMERACTUATOR, dimLevel);
+
+        String json = new Gson().toJson(action);
+        logger.debug("Action dimm JSON: {}", json);
+
+        HttpResponse response = executePost(API_URL_ACTION, action);
+
+        handleResponseErrors(response);
+    }
+
+    /**
      * Sets a new state of a VariableActuator.
      *
      * @param capabilityId

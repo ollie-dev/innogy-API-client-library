@@ -17,6 +17,7 @@ public class CapabilityState extends EntityState {
     public final static String STATE_NAME_LUMINANCE_SENSOR = "Luminance";
     public final static String STATE_NAME_PUSH_BUTTON_SENSOR_COUNTER = "LastKeyPressCounter";
     public final static String STATE_NAME_PUSH_BUTTON_SENSOR_BUTTON_INDEX = "LastPressedButtonIndex";
+    public final static String STATE_NAME_DIMMER_ACTUATOR = "DimLevel";
 
     public final static String STATE_VALUE_OPERATION_MODE_AUTO = "Auto";
     public final static String STATE_VALUE_OPERATION_MODE_MANUAL = "Manu";
@@ -151,6 +152,14 @@ public class CapabilityState extends EntityState {
 
     public void setPushButtonSensorButtonIndexState(double buttonIndex) {
         setPropertyValueAsDouble(STATE_NAME_PUSH_BUTTON_SENSOR_BUTTON_INDEX, buttonIndex);
+    }
+
+    public Double getDimmerActuatorState() {
+        return getPropertyValueAsDouble(STATE_NAME_DIMMER_ACTUATOR);
+    }
+
+    public void setDimmerActuatorState(double DimLevel) {
+        setPropertyValueAsDouble(STATE_NAME_DIMMER_ACTUATOR, DimLevel);
     }
 
 }
