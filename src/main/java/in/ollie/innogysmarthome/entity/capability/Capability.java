@@ -24,6 +24,7 @@ public class Capability extends ConfigPropertyList {
     public final static String TYPE_ALARMACTUATOR = "AlarmActuator";
     public final static String TYPE_MOTIONDETECTIONSENSOR = "MotionDetectionSensor";
     public final static String TYPE_LUMINANCESENSOR = "LuminanceSensor";
+    public final static String TYPE_PUSHBUTTONSENSOR = "PushButtonSensor";
 
     /**
      * Unique id for the Capability.
@@ -252,6 +253,15 @@ public class Capability extends ConfigPropertyList {
      */
     public boolean isTypeLuminanceSensor() {
         return getType().equals(TYPE_LUMINANCESENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type PushButtonSensor.
+     * 
+     * @return
+     */
+    public boolean isTypePushButtonSensor() {
+        return getType().equals(TYPE_PUSHBUTTONSENSOR);
     }
 
 }
