@@ -11,6 +11,7 @@ public class SetStateAction extends Action {
     public final static String ACTION_PARAMETER_SWITCHACTUATOR_ONSTATE = "OnState";
     public final static String ACTION_PARAMETER_VARIABLEACTUATOR_VALUE = "Value";
     public final static String ACTION_PARAMETER_THERMOSTATACTUATOR_POINTTEMPERATURE = "PointTemperature";
+    public final static String ACTION_PARAMETER_THERMOSTATACTUATOR_OPERATIONMODE = "OperationMode";
     public final static String ACTION_PARAMETER_ALARMACTUATOR_ONSTATE = "OnState";
 
     /**
@@ -56,6 +57,26 @@ public class SetStateAction extends Action {
         if (capabilityType.equals(Capability.TYPE_THERMOSTATACTUATOR)) {
             parameterList.add(new ActionParameter(ACTION_PARAMETER_THERMOSTATACTUATOR_POINTTEMPERATURE,
                     "/entity/Constant", new Constant(newValue)));
+        }
+        setParameterList(parameterList);
+    }
+
+    /**
+     * Constructs a new {@link SetStateAction}.
+     *
+     * @param capabilityId String of the 32 character capability id
+     * @param capabilityType the type of the {@link Capability}, {@link Capability#TYPE_THERMOSTATACTUATOR}
+     * @param newValue the new string value
+     */
+    public SetStateAction(String capabilityId, String capabilityType, String newValue) {
+        super(ACTION_TYPE_SETSTATE);
+        setCapabilityLink(capabilityId);
+
+        List<ActionParameter> parameterList = new ArrayList<ActionParameter>();
+
+        if (capabilityType.equals(Capability.TYPE_THERMOSTATACTUATOR)) {
+            parameterList.add(new ActionParameter(ACTION_PARAMETER_THERMOSTATACTUATOR_OPERATIONMODE, "/entity/Constant",
+                    new Constant(newValue)));
         }
         setParameterList(parameterList);
     }

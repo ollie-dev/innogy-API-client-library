@@ -3,16 +3,21 @@ package in.ollie.innogysmarthome.entity.state;
 public class CapabilityState extends EntityState {
     public final static String STATE_NAME_VARIABLE_ACTUATOR = "Value";
     public final static String STATE_NAME_SWITCH_ACTUATOR = "OnState";
-    public final static String STATE_NAME_TEMPERATURE_SENSOR = "Temperature";
-    public final static String STATE_NAME_THERMOSTAT_ACTUATOR = "PointTemperature";
-    public final static String STATE_NAME_HUMIDITY_SENSOR = "Humidity";
-    public final static String STATE_NAME_WINDOW_REDUCTION_ACTIVE = "WindowReductionActive";
-    public final static String STATE_NAME_OPERATION_MODE = "OperationMode";
+    public final static String STATE_NAME_TEMPERATURE_SENSOR_TEMPERATURE = "Temperature";
+    public final static String STATE_NAME_TEMPERATURE_SENSOR_FROST_WARNING = "FrostWarning";
+    public final static String STATE_NAME_THERMOSTAT_ACTUATOR_POINT_TEMPERATURE = "PointTemperature";
+    public final static String STATE_NAME_THERMOSTAT_ACTUATOR_OPERATION_MODE = "OperationMode";
+    public final static String STATE_NAME_THERMOSTAT_ACTUATOR_WINDOW_REDUCTION_ACTIVE = "WindowReductionActive";
+    public final static String STATE_NAME_HUMIDITY_SENSOR_HUMIDITY = "Humidity";
+    public final static String STATE_NAME_HUMIDITY_SENSOR_MOLD_WARNING = "MoldWarning";
     public final static String STATE_NAME_WINDOW_DOOR_SENSOR = "IsOpen";
     public final static String STATE_NAME_SMOKE_DETECTOR_SENSOR = "IsSmokeAlarm";
     public final static String STATE_NAME_ALARM_ACTUATOR = "OnState";
     public final static String STATE_NAME_MOTION_DETECTION_SENSOR = "MotionDetectedCount";
     public final static String STATE_NAME_LUMINANCE_SENSOR = "Luminance";
+
+    public final static String STATE_VALUE_OPERATION_MODE_AUTO = "Auto";
+    public final static String STATE_VALUE_OPERATION_MODE_MANUAL = "Manu";
 
     public Boolean getVariableActuatorState() {
         return getPropertyValueAsBoolean(STATE_NAME_VARIABLE_ACTUATOR);
@@ -30,28 +35,64 @@ public class CapabilityState extends EntityState {
         setPropertyValueAsBoolean(STATE_NAME_SWITCH_ACTUATOR, on);
     }
 
-    public Double getTemperatureSensorState() {
-        return getPropertyValueAsDouble(STATE_NAME_TEMPERATURE_SENSOR);
+    public Double getTemperatureSensorTemperatureState() {
+        return getPropertyValueAsDouble(STATE_NAME_TEMPERATURE_SENSOR_TEMPERATURE);
     }
 
-    public void setTemperatureSensorState(double temperature) {
-        setPropertyValueAsDouble(STATE_NAME_TEMPERATURE_SENSOR, temperature);
+    public void setTemperatureSensorTemperatureState(double temperature) {
+        setPropertyValueAsDouble(STATE_NAME_TEMPERATURE_SENSOR_TEMPERATURE, temperature);
     }
 
-    public Double getThermostatActuatorState() {
-        return getPropertyValueAsDouble(STATE_NAME_THERMOSTAT_ACTUATOR);
+    public Boolean getTemperatureSensorFrostWarningState() {
+        return getPropertyValueAsBoolean(STATE_NAME_TEMPERATURE_SENSOR_FROST_WARNING);
     }
 
-    public void setThermostatActuatorState(double pointTemperature) {
-        setPropertyValueAsDouble(STATE_NAME_THERMOSTAT_ACTUATOR, pointTemperature);
+    public void setTemperatureSensorFrostWarningState(boolean frostWarning) {
+        setPropertyValueAsBoolean(STATE_NAME_TEMPERATURE_SENSOR_FROST_WARNING, frostWarning);
     }
 
-    public Double getHumiditySensorState() {
-        return getPropertyValueAsDouble(STATE_NAME_HUMIDITY_SENSOR);
+    public Double getThermostatActuatorPointTemperatureState() {
+        return getPropertyValueAsDouble(STATE_NAME_THERMOSTAT_ACTUATOR_POINT_TEMPERATURE);
     }
 
-    public void setHumiditySensorState(double humidity) {
-        setPropertyValueAsDouble(STATE_NAME_HUMIDITY_SENSOR, humidity);
+    public void setThermostatActuatorPointTemperatureState(double pointTemperature) {
+        setPropertyValueAsDouble(STATE_NAME_THERMOSTAT_ACTUATOR_POINT_TEMPERATURE, pointTemperature);
+    }
+
+    public String getThermostatActuatorOperationModeState() {
+        return getPropertyValueAsString(STATE_NAME_THERMOSTAT_ACTUATOR_OPERATION_MODE);
+    }
+
+    public void setThermostatActuatorOperationModeState(String operationMode) {
+        if (operationMode.equals(STATE_VALUE_OPERATION_MODE_MANUAL)) {
+            setPropertyValueAsString(STATE_NAME_THERMOSTAT_ACTUATOR_OPERATION_MODE, STATE_VALUE_OPERATION_MODE_MANUAL);
+        } else {
+            setPropertyValueAsString(STATE_NAME_THERMOSTAT_ACTUATOR_OPERATION_MODE, STATE_VALUE_OPERATION_MODE_AUTO);
+        }
+    }
+
+    public Boolean getThermostatActuatorWindowReductionActiveState() {
+        return getPropertyValueAsBoolean(STATE_NAME_THERMOSTAT_ACTUATOR_WINDOW_REDUCTION_ACTIVE);
+    }
+
+    public void setThermostatActuatorWindowReductionActiveState(boolean windowReductionActive) {
+        setPropertyValueAsBoolean(STATE_NAME_THERMOSTAT_ACTUATOR_WINDOW_REDUCTION_ACTIVE, windowReductionActive);
+    }
+
+    public Double getHumiditySensorHumidityState() {
+        return getPropertyValueAsDouble(STATE_NAME_HUMIDITY_SENSOR_HUMIDITY);
+    }
+
+    public void setHumiditySensorHumidityState(double humidity) {
+        setPropertyValueAsDouble(STATE_NAME_HUMIDITY_SENSOR_HUMIDITY, humidity);
+    }
+
+    public Boolean getHumiditySensorMoldWarningState() {
+        return getPropertyValueAsBoolean(STATE_NAME_HUMIDITY_SENSOR_MOLD_WARNING);
+    }
+
+    public void setHumiditySensorMoldWarningState(boolean moldWarning) {
+        setPropertyValueAsBoolean(STATE_NAME_HUMIDITY_SENSOR_MOLD_WARNING, moldWarning);
     }
 
     public Boolean getWindowDoorSensorState() {

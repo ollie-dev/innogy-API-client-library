@@ -390,6 +390,26 @@ public class InnogyClient {
     }
 
     /**
+     * Sets the operation mode to "Auto" or "Manu".
+     *
+     * @param capabilityId
+     * @param autoMode
+     * @throws IOException
+     * @throws ApiException
+     */
+    public void setOperationMode(String capabilityId, boolean autoMode) throws IOException, ApiException {
+        Action action = new SetStateAction(capabilityId, Capability.TYPE_THERMOSTATACTUATOR,
+                autoMode ? "Auto" : "Manu");
+
+        String json = new Gson().toJson(action);
+        logger.debug("Action toggle JSON: {}", json);
+
+        HttpResponse response = executePost(API_URL_ACTION, action);
+
+        handleResponseErrors(response);
+    }
+
+    /**
      * Sets the alarm state.
      *
      * @param capabilityId

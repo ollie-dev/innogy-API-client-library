@@ -39,6 +39,19 @@ public abstract class PropertyList {
     }
 
     /**
+     * Sets the value of the {@link Property} with the given name to the stringState.
+     *
+     * @param propertyName String the name of the {@link Property}
+     * @param stringState String the new state to set
+     */
+    protected void setPropertyValueAsString(String propertyName, String stringState) {
+        Property p = getPropertyMap().get(propertyName);
+        if (p != null) {
+            p.setValue(stringState);
+        }
+    }
+
+    /**
      * Returns the value of the {@link Property} with the given name as {@link Boolean}.
      *
      * @param propertyName
