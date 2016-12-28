@@ -357,7 +357,7 @@ public class InnogyClient {
      * @throws IOException
      * @throws ApiException
      */
-    public void setDimmerActuatorState(String capabilityId, double dimLevel) throws IOException, ApiException {
+    public void setDimmerActuatorState(String capabilityId, int dimLevel) throws IOException, ApiException {
         Action action = new SetStateAction(capabilityId, Capability.TYPE_DIMMERACTUATOR, dimLevel);
 
         String json = new Gson().toJson(action);
