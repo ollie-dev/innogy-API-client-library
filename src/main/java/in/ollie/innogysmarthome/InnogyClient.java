@@ -187,7 +187,7 @@ public class InnogyClient {
         try {
             handleResponseErrors(response);
         } catch (SessionNotFoundException e) {
-            logger.debug("Session not found - ignoring");
+            // Session not found - ignoring
         }
     }
 
@@ -232,9 +232,7 @@ public class InnogyClient {
      * @throws IOException
      */
     private HttpResponse executeGet(String url) throws IOException {
-
         return requestFactory.buildGetRequest(new GenericUrl(url)).execute();
-
     }
 
     /**
