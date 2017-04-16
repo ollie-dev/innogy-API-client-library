@@ -593,6 +593,10 @@ public class InnogyClient {
         // DEVICES
         List<Device> deviceList = getDevices();
         for (Device d : deviceList) {
+            if (BATTERY_POWERED_DEVICES.contains(d.getType())) {
+                d.setIsBatteryPowered(true);
+            }
+
             // location
             d.setLocation(locationMap.get(d.getLocationId()));
             HashMap<String, Capability> deviceCapabilityMap = new HashMap<>();
@@ -673,6 +677,9 @@ public class InnogyClient {
 
         // DEVICE
         Device d = getDeviceById(deviceId);
+        if (BATTERY_POWERED_DEVICES.contains(d.getType())) {
+            d.setIsBatteryPowered(true);
+        }
 
         // location
         d.setLocation(locationMap.get(d.getLocationId()));

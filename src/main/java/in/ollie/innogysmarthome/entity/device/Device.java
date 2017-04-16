@@ -114,6 +114,11 @@ public class Device extends ConfigPropertyList {
     private boolean reachable;
 
     /**
+     * Stores, if the {@link Device} is battery powered.
+     */
+    private boolean batteryPowered = false;
+
+    /**
      * @return the id
      */
     public String getId() {
@@ -417,6 +422,25 @@ public class Device extends ConfigPropertyList {
     }
 
     /**
+     * Returns true, if the {@link Device} is battery powered.
+     *
+     * @return
+     */
+    public boolean isBatteryPowered() {
+        return batteryPowered;
+    }
+
+    /**
+     * Sets if the device is battery powered.
+     *
+     * @param hasBattery
+     */
+    public void setIsBatteryPowered(boolean hasBattery) {
+        batteryPowered = hasBattery;
+
+    }
+
+    /**
      * Returns true, if the {@link Device} has {@link Message}s.
      *
      * @return
@@ -445,4 +469,5 @@ public class Device extends ConfigPropertyList {
                 + getName() + "]";
         return string;
     }
+
 }

@@ -1,6 +1,15 @@
 package in.ollie.innogysmarthome;
 
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
+
 public class Constants {
+
+    // devices
+    public final static Set<String> BATTERY_POWERED_DEVICES = ImmutableSet.of("RST", "WRT", "WDS", "WSD", "WSD2", "WMD",
+            "WMDO", "WSC2", "BRC8");
+
     // API URLs
     public final static String API_VERSION = "1.0";
     public final static String REDIRECT_URL = "https://www.ollie.in/rwe-smarthome-token/";
@@ -29,5 +38,6 @@ public class Constants {
 
     public final static String API_URL_ACTION = "https://api.services-smarthome.de/API/1.0/action";
 
+    // others
     public final static String FORMAT_DATETIME = "dd.MM.yyyy HH:mm:ss";
 }
