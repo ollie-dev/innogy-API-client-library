@@ -7,6 +7,7 @@ public class Constants {
     public final static String API_URL_TOKEN = "https://api.services-smarthome.de/AUTH/token";
     public final static String API_URL_BASE = "https://api.services-smarthome.de/API/" + API_VERSION;
 
+    public final static String API_URL_CHECK_CONNECTION = API_URL_BASE + "/desc/device/SHC.RWE/1.0/event/StateChanged";
     public final static String API_URL_INITIALIZE = API_URL_BASE + "/initialize";
     public final static String API_URL_UNINITIALIZE = API_URL_BASE + "/uninitialize";
 

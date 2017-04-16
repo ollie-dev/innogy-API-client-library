@@ -3,6 +3,8 @@ package in.ollie.innogysmarthome;
 import static in.ollie.innogysmarthome.Constants.*;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -60,7 +62,6 @@ import in.ollie.innogysmarthome.exception.UnauthorizedException;
 public class InnogyClient {
     private Logger logger = LoggerFactory.getLogger(InnogyClient.class);
     private Configuration config;
-    private String id;
 
     /**
      * date format as used in json in API. Example: 2016-07-11T10:55:52.3863424Z
@@ -75,9 +76,9 @@ public class InnogyClient {
     private Device bridgeDetails;
     private long currentConfigurationVersion;
     private CredentialRefreshListener credentialRefreshListener = null;
+    private long apiCallCounter = 0;
 
-    public InnogyClient(String id, Configuration config) {
-        this.id = id;
+    public InnogyClient(Configuration config) {
         this.config = config;
     }
 
@@ -117,7 +118,7 @@ public class InnogyClient {
     }
 
     /**
-     * Initializes the
+     * Initializes the HTTP client
      */
     private void initializeHttpClient() {
         httpTransport = new NetHttpTransport();
@@ -225,6 +226,33 @@ public class InnogyClient {
     }
 
     /**
+     * Executes a test request to the innogy SmartHome web service and returns the HTTP-code.
+     *
+     * @return
+     */
+    public int checkConnection() {
+        try {
+            HttpResponse response = executeGet(API_URL_CHECK_CONNECTION);
+            return response.getStatusCode();
+        } catch (SocketTimeoutException e) {
+            return -4;
+        } catch (java.net.ConnectException e) {
+            return -3;
+        } catch (MalformedURLException e) {
+            return -2;
+        } catch (IOException e) {
+            if (e instanceof java.net.ConnectException) {
+                return -3;
+            }
+            if (e instanceof java.net.UnknownHostException) {
+                return -5;
+            }
+            logger.error("An IOException occurred by executing jsonRequest: " + API_URL_CHECK_CONNECTION, e);
+        }
+        return -1;
+    }
+
+    /**
      * Executes a HTTP GET request with default headers.
      *
      * @param url
@@ -232,6 +260,7 @@ public class InnogyClient {
      * @throws IOException
      */
     private HttpResponse executeGet(String url) throws IOException {
+        apiCallCounter++;
         return requestFactory.buildGetRequest(new GenericUrl(url)).execute();
     }
 
@@ -244,6 +273,7 @@ public class InnogyClient {
      * @throws IOException
      */
     private HttpResponse executeGet(String url, HttpHeaders headers) throws IOException {
+        apiCallCounter++;
         return requestFactory.buildGetRequest(new GenericUrl(url)).setHeaders(headers).execute();
     }
 
@@ -256,6 +286,7 @@ public class InnogyClient {
      * @throws IOException
      */
     private HttpResponse executePost(String url, Action action) throws IOException {
+        apiCallCounter++;
         return executePost(url, new JsonHttpContent(jsonFactory, action));
     }
 
@@ -268,6 +299,7 @@ public class InnogyClient {
      * @throws IOException
      */
     private HttpResponse executePost(String url, JsonHttpContent content) throws IOException {
+        apiCallCounter++;
         return requestFactory.buildPostRequest(new GenericUrl(url), content)
                 .setHeaders(new HttpHeaders().setAccept("application/json")).execute();
     }
@@ -286,10 +318,10 @@ public class InnogyClient {
         String content = "";
 
         if (response.getStatusCode() == HttpStatusCodes.STATUS_CODE_OK) {
-            logger.debug("Statuscode is OK.");
+            logger.debug("[" + apiCallCounter + "] Statuscode is OK.");
             return;
         } else {
-            logger.debug("Statuscode is NOT OK: " + response.getStatusCode());
+            logger.debug("[" + apiCallCounter + "] Statuscode is NOT OK: " + response.getStatusCode());
             try {
                 content = org.apache.commons.io.IOUtils.toString(response.getContent());
                 logger.trace("Response error content: {}", content);
@@ -474,7 +506,7 @@ public class InnogyClient {
     public List<Device> getDevices() throws IOException, ApiException {
 
         // loading devices
-        logger.debug("Loading innogy devices....");
+        logger.debug("Loading innogy devices...");
         HttpResponse response = executeGet(API_URL_DEVICE);
 
         handleResponseErrors(response);
@@ -806,6 +838,15 @@ public class InnogyClient {
      */
     public Configuration getConfig() {
         return config;
+    }
+
+    /**
+     * Returns the number of API calls since the {@link InnogyClient} was instantiated.
+     *
+     * @return long number of API calls
+     */
+    public long getApiCallCount() {
+        return apiCallCounter;
     }
 
     /**
