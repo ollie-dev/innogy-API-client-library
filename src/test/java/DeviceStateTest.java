@@ -59,4 +59,12 @@ public class DeviceStateTest {
     public void testIsReachable() {
         assertTrue(dsWMD.getIsReachable());
     }
+
+    @Test
+    public void testSetIsReachable() {
+        dsWMD.setIsReachable(false);
+        assertFalse(dsWMD.getIsReachable());
+        assertTrue(dsWMD.getStateMap().containsKey("IsReachable"));
+        assertFalse((boolean) dsWMD.getStateMap().get("IsReachable").getValue());
+    }
 }

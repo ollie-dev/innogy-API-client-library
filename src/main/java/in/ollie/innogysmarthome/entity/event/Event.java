@@ -149,7 +149,7 @@ public class Event extends PropertyList {
     @Override
     protected Map<String, Property> getPropertyMap() {
         if (propertyMap == null) {
-            propertyMap = Property.getHashMap(propertyList);
+            propertyMap = PropertyList.getHashMap(propertyList);
         }
 
         return propertyMap;

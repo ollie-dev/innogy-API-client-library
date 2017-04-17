@@ -1,5 +1,7 @@
 package in.ollie.innogysmarthome.entity;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class PropertyList {
@@ -7,9 +9,27 @@ public abstract class PropertyList {
     /**
      * Returns a {@link Map} of the {@link Property}s. Must be overwritten!
      *
-     * @return the configMap
+     * @return {@link Map} of {@link Property}s
      */
     protected abstract Map<String, Property> getPropertyMap();
+
+    /**
+     * Returns a {@link List} of the {@link Property}s. Must be overwritten!
+     *
+     * @return {@link List} of {@link Property}s
+     */
+    protected abstract List<Property> getPropertyList();
+
+    /**
+     * Adds a {@link Property} to the {@link #PropertyList()} and corresponding {@link #getPropertyMap()}. Make sure
+     * the element is new first - this is not checked!
+     *
+     * @param p
+     */
+    private void addProperty(Property p) {
+        getPropertyList().add(p);
+        getPropertyMap().put(p.getName(), p);
+    }
 
     /**
      * Returns the value of the {@link Property} with the given name.
@@ -42,12 +62,14 @@ public abstract class PropertyList {
      * Sets the value of the {@link Property} with the given name to the stringState.
      *
      * @param propertyName String the name of the {@link Property}
-     * @param stringState String the new state to set
+     * @param stringValue String the new value to set
      */
-    protected void setPropertyValueAsString(String propertyName, String stringState) {
+    protected void setPropertyValueAsString(String propertyName, String stringValue) {
         Property p = getPropertyMap().get(propertyName);
         if (p != null) {
-            p.setValue(stringState);
+            p.setValue(stringValue);
+        } else {
+            addProperty(new Property(propertyName, stringValue));
         }
     }
 
@@ -72,12 +94,14 @@ public abstract class PropertyList {
      * Sets the value of the {@link Property} with the given name to the booleanState.
      *
      * @param propertyName String the name of the {@link Property}
-     * @param booleanState boolean the new state to set
+     * @param booleanValue boolean the new value to set
      */
-    protected void setPropertyValueAsBoolean(String propertyName, boolean booleanState) {
+    protected void setPropertyValueAsBoolean(String propertyName, boolean booleanValue) {
         Property p = getPropertyMap().get(propertyName);
         if (p != null) {
-            p.setValue(booleanState);
+            p.setValue(booleanValue);
+        } else {
+            addProperty(new Property(propertyName, booleanValue));
         }
     }
 
@@ -101,12 +125,14 @@ public abstract class PropertyList {
      * Sets the value of the {@link Property} with the given name to the doubleState.
      *
      * @param propertyName String the name of the {@link Property}
-     * @param doubleState double the new state to set
+     * @param doubleValue double the new value to set
      */
-    protected void setPropertyValueAsDouble(String propertyName, double doubleState) {
+    protected void setPropertyValueAsDouble(String propertyName, double doubleValue) {
         Property p = getPropertyMap().get(propertyName);
         if (p != null) {
-            p.setValue(doubleState);
+            p.setValue(doubleValue);
+        } else {
+            addProperty(new Property(propertyName, doubleValue));
         }
     }
 
@@ -136,13 +162,29 @@ public abstract class PropertyList {
      * Sets the value of the {@link Property} with the given name to the intState.
      *
      * @param propertyName String the name of the {@link Property}
-     * @param intState int the new state to set
+     * @param intValue int the new value to set
      */
-    protected void setPropertyValueAsInteger(String propertyName, int intState) {
+    protected void setPropertyValueAsInteger(String propertyName, int intValue) {
         Property p = getPropertyMap().get(propertyName);
         if (p != null) {
-            p.setValue(intState);
+            p.setValue(intValue);
+        } else {
+            addProperty(new Property(propertyName, intValue));
         }
+    }
+
+    /**
+     * Returns a {@link HashMap} with the name as key and {@link Property} as value.
+     *
+     * @param propertyList
+     * @return
+     */
+    public static HashMap<String, Property> getHashMap(List<Property> propertyList) {
+        HashMap<String, Property> map = new HashMap<String, Property>();
+        for (Property p : propertyList) {
+            map.put(p.getName(), p);
+        }
+        return map;
     }
 
 }

@@ -1,12 +1,8 @@
 package in.ollie.innogysmarthome.entity.state;
 
-import java.util.Map;
-
 import com.google.api.client.util.Key;
 
-import in.ollie.innogysmarthome.entity.Property;
-
-public class EntityState extends StateList {
+public class EntityState extends StatePropertyList {
 
     @Key("Id")
     private String id;
@@ -24,10 +20,4 @@ public class EntityState extends StateList {
     public void setId(String id) {
         this.id = id;
     }
-
-    @Override
-    public Map<String, Property> getPropertyMap() {
-        return super.getPropertyMap();
-    }
-
 }

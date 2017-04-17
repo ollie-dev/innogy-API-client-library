@@ -17,10 +17,7 @@ import in.ollie.innogysmarthome.entity.state.DeviceState;
 public class Device extends ConfigPropertyList {
 
     public final static String DEVICE_TYPE_SHC = "SHC";
-    @Deprecated
-    public final static String DEVICE_TYPE_SWITCHACTUATOR = "SwitchActuator";
-    @Deprecated
-    public final static String DEVICE_TYPE_VARIABLEACTUATOR = "VariableActuator";
+    public final static String DEVICE_MANUFACTURER_RWE = "RWE";
 
     /**
      * Unique id for the device, always available in model.
@@ -111,12 +108,37 @@ public class Device extends ConfigPropertyList {
 
     private boolean lowBattery;
 
-    private boolean reachable;
-
     /**
      * Stores, if the {@link Device} is battery powered.
      */
     private boolean batteryPowered = false;
+
+    // public Device() {
+    // }
+    //
+    // public Device(JsonObject object) {
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_ID.getKey()) != null) {
+    // this.id = object.get(JSONApiResponseKeysEnum.DEVICE_ID.getKey()).getAsString();
+    // }
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_MANUFACTURER.getKey()) != null) {
+    // this.manufacturer = object.get(JSONApiResponseKeysEnum.DEVICE_MANUFACTURER.getKey()).getAsString();
+    // }
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_VERSION.getKey()) != null) {
+    // this.version = object.get(JSONApiResponseKeysEnum.DEVICE_VERSION.getKey()).getAsString();
+    // }
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_PRODUCT.getKey()) != null) {
+    // this.product = object.get(JSONApiResponseKeysEnum.DEVICE_PRODUCT.getKey()).getAsString();
+    // }
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_SERIALNUMBER.getKey()) != null) {
+    // this.serialnumber = object.get(JSONApiResponseKeysEnum.DEVICE_SERIALNUMBER.getKey()).getAsString();
+    // }
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_DESC.getKey()) != null) {
+    // this.desc = object.get(JSONApiResponseKeysEnum.DEVICE_DESC.getKey()).getAsString();
+    // }
+    // if (object.get(JSONApiResponseKeysEnum.DEVICE_TYPE.getKey()) != null) {
+    // this.type = object.get(JSONApiResponseKeysEnum.DEVICE_TYPE.getKey()).getAsString();
+    // }
+    // }
 
     /**
      * @return the id
@@ -198,16 +220,20 @@ public class Device extends ConfigPropertyList {
     }
 
     /**
+     * Returns a relative link to the description.
+     *
      * @return the desc
      */
-    public String getDesc() {
+    public String getDescription() {
         return desc;
     }
 
     /**
+     * Sets the description.
+     *
      * @param desc the desc to set
      */
-    public void setDesc(String desc) {
+    public void setDescription(String desc) {
         this.desc = desc;
     }
 
@@ -390,8 +416,8 @@ public class Device extends ConfigPropertyList {
      *
      * @param isReachable
      */
-    private void setIsReachable(boolean isReachable) {
-        this.reachable = isReachable;
+    public void setIsReachable(boolean isReachable) {
+        getDeviceState().setIsReachable(isReachable);
     }
 
     /**
@@ -399,8 +425,8 @@ public class Device extends ConfigPropertyList {
      *
      * @return
      */
-    private boolean isReachable() {
-        return reachable;
+    public boolean isReachable() {
+        return getDeviceState().getIsReachable();
     }
 
     /**
@@ -459,7 +485,34 @@ public class Device extends ConfigPropertyList {
      * @return
      */
     public boolean isController() {
-        return type.equals(DEVICE_TYPE_SHC);
+        return DEVICE_TYPE_SHC.equals(type);
+    }
+
+    /**
+     * Returns true, if the device is made by RWE.
+     *
+     * @return
+     */
+    public boolean isRWEDevice() {
+        return DEVICE_MANUFACTURER_RWE.equals(manufacturer);
+    }
+
+    /**
+     * Returns true, if the {@link Device} is a virtual device (e.g. a VariableActuator).
+     *
+     * @return
+     */
+    public boolean isVirtualDevice() {
+        return PROTOCOL_ID_VIRTUAL.equals(getProtocolId());
+    }
+
+    /**
+     * Returns true, if the {@link Device} is a radio device.
+     *
+     * @return
+     */
+    public boolean isRadioDevice() {
+        return PROTOCOL_ID_COSIP.equals(getProtocolId());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package in.ollie.innogysmarthome.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,10 +94,24 @@ public abstract class ConfigPropertyList extends PropertyList {
     @Override
     protected Map<String, Property> getPropertyMap() {
         if (configMap == null) {
-            configMap = Property.getHashMap(configList);
+            configMap = PropertyList.getHashMap(configList);
         }
 
         return configMap;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see in.ollie.innogysmarthome.entity.PropertyList#getPropertyList()
+     */
+    @Override
+    protected List<Property> getPropertyList() {
+        if (configList == null) {
+            configList = new ArrayList<Property>();
+        }
+
+        return configList;
     }
 
     /**

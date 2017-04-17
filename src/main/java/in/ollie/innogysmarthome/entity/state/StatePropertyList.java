@@ -1,5 +1,6 @@
 package in.ollie.innogysmarthome.entity.state;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +12,13 @@ import com.google.api.client.util.Key;
 import in.ollie.innogysmarthome.Util;
 import in.ollie.innogysmarthome.entity.Property;
 import in.ollie.innogysmarthome.entity.PropertyList;
-import in.ollie.innogysmarthome.entity.device.Device;
 
-public abstract class StateList extends PropertyList {
+public abstract class StatePropertyList extends PropertyList {
 
     /** state property field names */
-    protected static final String STATE_PROPERTY_NAME = "name";
-    protected static final String STATE_PROPERTY_VALUE = "value";
-    protected static final String STATE_PROPERTY_LASTCHANGED = "lastchanged";
+    protected static final String STATE_PROPERTY_KEY_NAME = "name";
+    protected static final String STATE_PROPERTY_KEY_VALUE = "value";
+    protected static final String STATE_PROPERTY_KEY_LASTCHANGED = "lastchanged";
 
     /** state name list */
     protected static final String STATE_NAME_ISREACHABLE = "IsReachable";
@@ -39,6 +39,8 @@ public abstract class StateList extends PropertyList {
 
     protected static final String DEVICE_INCLUSION_STATE_INCLUDED = "Included";
     protected static final String DEVICE_INCLUSION_STATE_PENDING = "InclusionPending";
+
+    protected static final String DEVICE_UPDATE_STATE_UPTODATE = "UpToDate";
 
     /**
      * This represents a container of all configuration properties.
@@ -72,10 +74,24 @@ public abstract class StateList extends PropertyList {
     @Override
     protected Map<String, Property> getPropertyMap() {
         if (stateMap == null) {
-            stateMap = Property.getHashMap(stateList);
+            stateMap = PropertyList.getHashMap(stateList);
         }
 
         return stateMap;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see in.ollie.innogysmarthome.entity.PropertyList#getPropertyList()
+     */
+    @Override
+    protected List<Property> getPropertyList() {
+        if (stateList == null) {
+            stateList = new ArrayList<Property>();
+        }
+
+        return stateList;
     }
 
     /**
@@ -91,7 +107,7 @@ public abstract class StateList extends PropertyList {
      * @return
      */
     public String getName() {
-        return getPropertyValueAsString(STATE_PROPERTY_NAME);
+        return getPropertyValueAsString(STATE_PROPERTY_KEY_NAME);
     }
 
     /**
@@ -100,7 +116,7 @@ public abstract class StateList extends PropertyList {
      * @return
      */
     public Object getValue() {
-        return getPropertyValue(STATE_PROPERTY_VALUE);
+        return getPropertyValue(STATE_PROPERTY_KEY_VALUE);
     }
 
     /**
@@ -109,48 +125,12 @@ public abstract class StateList extends PropertyList {
      * @return
      */
     public DateTime getLastChanged() {
-        String time = getPropertyValueAsString(STATE_PROPERTY_LASTCHANGED);
+        String time = getPropertyValueAsString(STATE_PROPERTY_KEY_LASTCHANGED);
         if (time == null) {
             return null;
         } else {
             return Util.convertZuluTimeStringToDate(time);
         }
-    }
-
-    /**
-     * Returns, if the value of the state "IsReachable" is true.
-     *
-     * @return true or false for "reachable" {@link Device}s, else null.
-     */
-    public Boolean getIsReachable() {
-        return getPropertyValueAsBoolean(STATE_NAME_ISREACHABLE);
-    }
-
-    /**
-     * Returns the device inclusion state.
-     *
-     * @return
-     */
-    public String getDeviceInclusionState() {
-        return getPropertyValueAsString(STATE_NAME_DEVICEINCLUSIONSTATE);
-    }
-
-    /**
-     * Returns true, if the device is included.
-     *
-     * @return
-     */
-    public Boolean deviceIsIncluded() {
-        return getDeviceInclusionState().equals(DEVICE_INCLUSION_STATE_INCLUDED);
-    }
-
-    /**
-     * Returns true, if the device inclusion state is "pending".
-     *
-     * @return
-     */
-    public Boolean deviceInclusionIsPending() {
-        return getDeviceInclusionState().equals(DEVICE_INCLUSION_STATE_PENDING);
     }
 
     /**
@@ -180,7 +160,7 @@ public abstract class StateList extends PropertyList {
      * Returns the config version of the smarthome setup.
      *
      * The config version changes everytime, the configuration on the controller is changed and saved.
-     * 
+     *
      * @return
      */
     public Integer getConfigVersion() {

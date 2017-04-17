@@ -1,8 +1,5 @@
 package in.ollie.innogysmarthome.entity;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.google.api.client.util.Key;
 
 public class Property {
@@ -15,6 +12,21 @@ public class Property {
 
     @Key("lastchanged")
     private String lastchanged;
+
+    public Property() {
+
+    }
+
+    /**
+     * Constructs a new {@link Property} with the given name and value.
+     *
+     * @param name
+     * @param value
+     */
+    public Property(String name, Object value) {
+        this.name = name;
+        this.value = value;
+    }
 
     /**
      * @return the name
@@ -56,19 +68,5 @@ public class Property {
      */
     public void setLastchanged(String lastchanged) {
         this.lastchanged = lastchanged;
-    }
-
-    /**
-     * Returns a {@link HashMap} with the name as key and {@link Property} as value.
-     *
-     * @param propertyList
-     * @return
-     */
-    public static HashMap<String, Property> getHashMap(List<Property> propertyList) {
-        HashMap<String, Property> map = new HashMap<String, Property>();
-        for (Property p : propertyList) {
-            map.put(p.getName(), p);
-        }
-        return map;
     }
 }
