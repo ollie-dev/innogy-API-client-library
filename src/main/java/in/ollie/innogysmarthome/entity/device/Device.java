@@ -408,16 +408,16 @@ public class Device extends ConfigPropertyList {
      *
      * @param hasLowBattery
      */
-    private void setLowBattery(boolean hasLowBattery) {
+    public void setLowBattery(boolean hasLowBattery) {
         this.lowBattery = hasLowBattery;
     }
 
     /**
-     * Returns if the {@link Device} has a low battery warning. Only available on battery devices.
+     * Returns true if the {@link Device} has a low battery warning. Only available on battery devices.
      *
      * @return
      */
-    private boolean hasLowBattery() {
+    public boolean hasLowBattery() {
         return lowBattery;
     }
 

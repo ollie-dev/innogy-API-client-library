@@ -55,6 +55,7 @@ import in.ollie.innogysmarthome.exception.ConfigurationException;
 import in.ollie.innogysmarthome.exception.ControllerOfflineException;
 import in.ollie.innogysmarthome.exception.InvalidActionTriggeredException;
 import in.ollie.innogysmarthome.exception.InvalidAuthCodeException;
+import in.ollie.innogysmarthome.exception.ServiceUnavailableException;
 import in.ollie.innogysmarthome.exception.SessionExistsException;
 import in.ollie.innogysmarthome.exception.SessionNotFoundException;
 import in.ollie.innogysmarthome.exception.UnauthorizedException;
@@ -317,46 +318,54 @@ public class InnogyClient {
     private void handleResponseErrors(HttpResponse response) throws IOException, ApiException {
         String content = "";
 
-        if (response.getStatusCode() == HttpStatusCodes.STATUS_CODE_OK) {
-            logger.debug("[" + apiCallCounter + "] Statuscode is OK.");
-            return;
-        } else {
-            logger.debug("[" + apiCallCounter + "] Statuscode is NOT OK: " + response.getStatusCode());
-            try {
-                content = org.apache.commons.io.IOUtils.toString(response.getContent());
-                logger.trace("Response error content: {}", content);
-                ErrorResponse error = gson.fromJson(content, ErrorResponse.class);
+        switch (response.getStatusCode()) {
+            case HttpStatusCodes.STATUS_CODE_OK:
+                logger.debug("[" + apiCallCounter + "] Statuscode is OK.");
+                return;
+            case HttpStatusCodes.STATUS_CODE_SERVICE_UNAVAILABLE:
+                logger.debug("innogy service is unavailabe (503).");
+                throw new ServiceUnavailableException("innogy service is unavailabe (503).");
+            case HttpStatusCodes.STATUS_CODE_NOT_FOUND:
+                logger.debug("HTTP Error 404. The requested resource is not found.");
+                throw new ApiException("HTTP Error 404. The requested resource is not found.");
+            default:
+                logger.debug("[" + apiCallCounter + "] Statuscode is NOT OK: " + response.getStatusCode());
+                try {
+                    content = org.apache.commons.io.IOUtils.toString(response.getContent());
+                    logger.trace("Response error content: {}", content);
+                    ErrorResponse error = gson.fromJson(content, ErrorResponse.class);
 
-                if (error == null) {
-                    return;
+                    if (error == null) {
+                        return;
+                    }
+
+                    switch (error.getCode()) {
+                        case ErrorResponse.ERR_SESSION_EXISTS:
+                            logger.debug("Session exists: " + error.toString());
+                            throw new SessionExistsException(error.getDescription());
+                        case ErrorResponse.ERR_SESSION_NOT_FOUND:
+                            logger.debug("Session not found: " + error.toString());
+                            throw new SessionNotFoundException(error.getDescription());
+                        case ErrorResponse.ERR_CONTROLLER_OFFLINE:
+                            logger.debug("Controller offline: " + error.toString());
+                            throw new ControllerOfflineException(error.getDescription());
+                        case ErrorResponse.ERR_REMOTE_ACCESS_NOT_ALLOWED:
+                            logger.debug(
+                                    "Remote access not allowed. Access is allowed only from the SHC device network.");
+                            throw new UnauthorizedException(
+                                    "Remote access not allowed. Access is allowed only from the SHC device network.");
+                        case ErrorResponse.ERR_INVALID_ACTION_TRIGGERED:
+                            logger.error("Invalid action triggered. Message: {}", error.getMessages());
+                            throw new InvalidActionTriggeredException(error.getDescription());
+                        default:
+                            logger.debug("Unknown error: " + error.toString());
+                            throw new ApiException("Unknown error: " + error.toString());
+                    }
+                } catch (JsonSyntaxException e) {
+                    throw new ApiException("Invalid JSON syntax in error response: " + content);
                 }
 
-                switch (error.getCode()) {
-                    case ErrorResponse.ERR_SESSION_EXISTS:
-                        logger.debug("Session exists: " + error.toString());
-                        throw new SessionExistsException(error.getDescription());
-                    case ErrorResponse.ERR_SESSION_NOT_FOUND:
-                        logger.debug("Session not found: " + error.toString());
-                        throw new SessionNotFoundException(error.getDescription());
-                    case ErrorResponse.ERR_CONTROLLER_OFFLINE:
-                        logger.debug("Controller offline: " + error.toString());
-                        throw new ControllerOfflineException(error.getDescription());
-                    case ErrorResponse.ERR_REMOTE_ACCESS_NOT_ALLOWED:
-                        logger.debug("Remote access not allowed. Access is allowed only from the SHC device network.");
-                        throw new UnauthorizedException(
-                                "Remote access not allowed. Access is allowed only from the SHC device network.");
-                    case ErrorResponse.ERR_INVALID_ACTION_TRIGGERED:
-                        logger.error("Invalid action triggered. Message: {}", error.getMessages());
-                        throw new InvalidActionTriggeredException(error.getDescription());
-                    default:
-                        logger.debug("Unknown error: " + error.toString());
-                        throw new ApiException("Unknown error: " + error.toString());
-                }
-            } catch (JsonSyntaxException e) {
-                throw new ApiException("Invalid JSON syntax in error response: " + content);
-            }
         }
-
     }
 
     /**
@@ -603,11 +612,9 @@ public class InnogyClient {
 
             // capabilities and their states
             for (CapabilityLink cl : d.getCapabilityLinkList()) {
-
                 Capability c = capabilityMap.get(cl.getId());
                 c.setCapabilityState(capabilityStateMap.get(c.getId()));
                 deviceCapabilityMap.put(c.getId(), c);
-
             }
             d.setCapabilityMap(deviceCapabilityMap);
 
@@ -617,6 +624,13 @@ public class InnogyClient {
             // messages
             if (deviceMessageMap.containsKey(d.getId())) {
                 d.setMessageList(deviceMessageMap.get(d.getId()));
+                for (Message m : d.getMessageList()) {
+                    switch (m.getType()) {
+                        case Message.TYPE_DEVICE_LOW_BATTERY:
+                            d.setLowBattery(true);
+                            break;
+                    }
+                }
             }
         }
 
@@ -679,6 +693,7 @@ public class InnogyClient {
         Device d = getDeviceById(deviceId);
         if (BATTERY_POWERED_DEVICES.contains(d.getType())) {
             d.setIsBatteryPowered(true);
+            d.setLowBattery(false);
         }
 
         // location
@@ -701,6 +716,13 @@ public class InnogyClient {
         // messages
         if (ml.size() > 0) {
             d.setMessageList(ml);
+            for (Message m : d.getMessageList()) {
+                switch (m.getType()) {
+                    case Message.TYPE_DEVICE_LOW_BATTERY:
+                        d.setLowBattery(true);
+                        break;
+                }
+            }
         }
 
         return d;
