@@ -16,6 +16,7 @@ import in.ollie.innogysmarthome.entity.state.DeviceState;
 public class DeviceStateTest {
 
     DeviceState dsSHC;
+    DeviceState dsWMD;
 
     @Before
     public void setUp() {
@@ -26,6 +27,13 @@ public class DeviceStateTest {
         List<Property> deviceStateListSHC = Arrays.asList(deviceStateArraySHC);
         dsSHC = new DeviceState();
         dsSHC.setStateList(deviceStateListSHC);
+
+        Property[] deviceStateArrayWMD = gson.fromJson(
+                "[{\"name\":\"IsReachable\",\"value\":true,\"lastchanged\":\"0001-01-01T00:00:00.0000000Z\"},{\"name\":\"DeviceConfigurationState\",\"value\":\"Complete\",\"lastchanged\":\"0001-01-01T00:00:00.0000000Z\"},{\"name\":\"DeviceInclusionState\",\"value\":\"Included\",\"lastchanged\":\"2017-04-08T06:19:37.1930000Z\"},{\"name\":\"UpdateState\",\"value\":\"UpToDate\",\"lastchanged\":\"0001-01-01T00:00:00.0000000Z\"},{\"name\":\"FirmwareVersion\",\"value\":\"1.5\",\"lastchanged\":\"2017-04-16T22:17:20.2790000Z\"}]",
+                Property[].class);
+        List<Property> deviceStateListWMD = Arrays.asList(deviceStateArrayWMD);
+        dsWMD = new DeviceState();
+        dsWMD.setStateList(deviceStateListWMD);
     }
 
     @Test
@@ -45,5 +53,10 @@ public class DeviceStateTest {
     @Test
     public void testGetConfigurationVersion() {
         assertEquals(new Integer(132), dsSHC.getConfigVersion());
+    }
+
+    @Test
+    public void testIsReachable() {
+        assertTrue(dsWMD.getIsReachable());
     }
 }
