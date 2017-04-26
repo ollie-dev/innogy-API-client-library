@@ -407,7 +407,7 @@ public class Device extends ConfigPropertyList {
 
         for (Message m : messageList) {
             setLowBattery(m.getType().equals(Message.TYPE_DEVICE_LOW_BATTERY));
-            setIsReachable(m.getType().equals(Message.TYPE_DEVICE_UNREACHABLE));
+            setIsReachable(!m.getType().equals(Message.TYPE_DEVICE_UNREACHABLE));
         }
     }
 
