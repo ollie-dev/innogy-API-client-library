@@ -326,7 +326,8 @@ public class InnogyClient {
                 logger.debug("innogy service is unavailabe (503).");
                 throw new ServiceUnavailableException("innogy service is unavailabe (503).");
             case HttpStatusCodes.STATUS_CODE_NOT_FOUND:
-                logger.debug("HTTP Error 404. The requested resource is not found.");
+                logger.debug("HTTP Error 404. The requested resource is not found. Message: {}",
+                        org.apache.commons.io.IOUtils.toString(response.getContent()));
                 throw new ApiException("HTTP Error 404. The requested resource is not found.");
             default:
                 logger.debug("[" + apiCallCounter + "] Statuscode is NOT OK: " + response.getStatusCode());
