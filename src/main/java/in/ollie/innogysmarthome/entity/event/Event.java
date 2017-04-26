@@ -1,10 +1,14 @@
 package in.ollie.innogysmarthome.entity.event;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.google.api.client.util.Key;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import in.ollie.innogysmarthome.entity.Message;
@@ -69,7 +73,8 @@ public class Event extends PropertyList {
      * Optional.
      */
     @Key("Data")
-    private List<Object> dataList;
+    @SerializedName("Data")
+    private List<JsonObject> dataList;
 
     /**
      * @return the type
@@ -130,6 +135,7 @@ public class Event extends PropertyList {
     /**
      * @return the propertyList
      */
+    @Override
     public List<Property> getPropertyList() {
         return propertyList;
     }
@@ -158,14 +164,42 @@ public class Event extends PropertyList {
     /**
      * @return the dataList
      */
-    protected List<Object> getDataList() {
+    public List<JsonObject> getDataList() {
         return dataList;
+    }
+
+    public List<Message> getDataListAsMessage() {
+        List<Message> messageList = new ArrayList<Message>();
+        List<JsonObject> objectList = getDataList();
+        for (JsonObject o : objectList) {
+            Message m = new Message();
+            m.setId(o.get("id").getAsString());
+            m.setType(o.get("type").getAsString());
+            m.setRead(o.get("read").getAsBoolean());
+            m.setMessageClass(o.get("class").getAsString());
+            m.setDesc(o.get("desc").getAsString());
+            m.setTimestamp(o.get("timestamp").getAsString());
+            if (o.has("Devices")) {
+                List<Link> deviceLinkList = new ArrayList<Link>();
+                JsonArray deviceArr = o.get("Devices").getAsJsonArray();
+
+                for (JsonElement deviceObject : deviceArr) {
+                    deviceLinkList.add(new Link(deviceObject.getAsJsonObject().get("value").getAsString()));
+                }
+                m.setDeviceLinkList(deviceLinkList);
+            }
+            // TODO: add datapropertylist
+            // m.setDataPropertyList(dataPropertyList);
+            m.setProductLink(new Link(o.get("Product").getAsJsonObject().get("value").getAsString()));
+            messageList.add(m);
+        }
+        return messageList;
     }
 
     /**
      * @param dataList the dataList to set
      */
-    public void setDataList(List<Object> dataList) {
+    public void setDataList(List<JsonObject> dataList) {
         this.dataList = dataList;
     }
 
