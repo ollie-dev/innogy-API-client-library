@@ -1,0 +1,35 @@
+{
+	"type": "device/SHC.RWE/1.0/event/StateChanged",
+	"timestamp": "2016-12-07T07:39:14.3640000Z",
+	"desc": "/desc/device/SHC.RWE/1.0/event/StateChanged",
+	"link": {
+		"value": "/device/76e68e066e873b9da3303223cbf3b038"
+	},
+	"Properties": [
+		{
+			"name": "IsReachable",
+			"value": false,
+			"lastchanged": "2016-12-07T07:39:14.3350000Z"
+		},
+		{
+			"name": "DeviceConfigurationState",
+			"value": "Complete",
+			"lastchanged": "0001-01-01T00:00:00.0000000Z"
+		},
+		{
+			"name": "DeviceInclusionState",
+			"value": "Included",
+			"lastchanged": "2016-12-07T07:12:19.6290000Z"
+		},
+		{
+			"name": "UpdateState",
+			"value": "UpToDate",
+			"lastchanged": "0001-01-01T00:00:00.0000000Z"
+		},
+		{
+			"name": "FirmwareVersion",
+			"value": "1.0",
+			"lastchanged": "2016-12-07T07:39:14.3630000Z"
+		}
+	]
+}

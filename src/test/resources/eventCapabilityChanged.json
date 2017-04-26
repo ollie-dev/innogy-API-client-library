@@ -1,0 +1,15 @@
+{
+	"type": "device/SHC.RWE/1.0/event/StateChanged",
+	"timestamp": "2016-10-21T22:16:46.9990000Z",
+	"desc": "/desc/device/SHC.RWE/1.0/event/StateChanged",
+	"link": {
+		"value": "/capability/2d3e58bca3fc40148e33cb4df6daef90"
+	},
+	"Properties": [
+		{
+			"name": "Value",
+			"value": false,
+			"lastchanged": "2016-10-21T22:16:46.9780000Z"
+		}
+	]
+}

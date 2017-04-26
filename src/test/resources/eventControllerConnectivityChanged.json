@@ -1,0 +1,15 @@
+{
+	"type": "device/SHC.RWE/1.0/event/ControllerConnectivityChanged",
+	"timestamp": "2016-12-07T19:47:25.1124564Z",
+	"desc": "/desc/device/SHC.RWE/1.0/event/ControllerConnectivityChanged",
+	"link": {
+		"value": "/desc/device/SHC.RWE/1.0"
+	},
+	"Properties": [
+		{
+			"name": "IsConnected",
+			"value": false
+		}
+	],
+	"Data": []
+}

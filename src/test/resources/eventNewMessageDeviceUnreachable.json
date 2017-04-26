@@ -1,18 +1,18 @@
 {
 	"type": "device/SHC.RWE/1.0/event/NewMessageReceived",
-	"timestamp": "2016-12-29T08:22:53.1590000Z",
+	"timestamp": "2016-12-07T07:39:14.5980000Z",
 	"desc": "/desc/device/SHC.RWE/1.0/event/NewMessageReceived",
 	"link": {
 		"value": "/desc/device/SHC.RWE/1.0"
 	},
 	"Data": [
 		{
-			"id": "6e2ff765d6714baab5925f4f30e8afb4",
-			"type": "DeviceLowBattery",
+			"id": "ad20d5fe86d64dd0a59a113272ea8780",
+			"type": "DeviceUnreachable",
 			"read": false,
 			"class": "Alert",
-			"desc": "/desc/product/core.RWE/2.01/message/DeviceLowBattery",
-			"timestamp": "2016-12-29T08:22:53.072Z",
+			"desc": "/desc/product/core.RWE/2.01/message/DeviceUnreachable",
+			"timestamp": "2016-12-07T07:39:14.483Z",
 			"Devices": [
 				{
 					"value": "/device/76e68e066e874b9da3403223cbf4b048"
