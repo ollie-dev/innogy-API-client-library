@@ -1,0 +1,8 @@
+{
+	"type": "device/SHC.RWE/1.0/event/MessageDeleted",
+	"timestamp": "2017-04-27T18:25:04.4640000Z",
+	"desc": "/desc/device/SHC.RWE/1.0/event/MessageDeleted",
+	"link": {
+		"value": "/message/93711f11c7874b5eaf832081e7fca7df"
+	}
+}
