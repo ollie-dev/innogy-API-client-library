@@ -501,7 +501,10 @@ public class InnogyClient {
             requestFactory = null;
             credentialBuilder = null;
         } catch (IOException | ApiException e) {
-            logger.debug("Error disposing resources", e);
+            logger.debug("Error disposing resources", e.getMessage());
+            if (logger.isTraceEnabled()) {
+                logger.trace("Trace:", e);
+            }
         }
 
     }
