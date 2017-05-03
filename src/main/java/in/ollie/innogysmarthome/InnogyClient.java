@@ -409,6 +409,26 @@ public class InnogyClient {
     }
 
     /**
+     * Sets the roller shutter level of a RollerShutterActuator.
+     *
+     * @param capabilityId
+     * @param rollerShutterLevel
+     * @throws IOException
+     * @throws ApiException
+     */
+    public void setRollerShutterActuatorState(String capabilityId, int rollerShutterLevel)
+            throws IOException, ApiException {
+        Action action = new SetStateAction(capabilityId, Capability.TYPE_ROLLERSHUTTERACTUATOR, rollerShutterLevel);
+
+        String json = new Gson().toJson(action);
+        logger.debug("Action rollershutter JSON: {}", json);
+
+        HttpResponse response = executePost(API_URL_ACTION, action);
+
+        handleResponseErrors(response);
+    }
+
+    /**
      * Sets a new state of a VariableActuator.
      *
      * @param capabilityId

@@ -14,6 +14,7 @@ public class SetStateAction extends Action {
     public final static String ACTION_PARAMETER_THERMOSTATACTUATOR_OPERATIONMODE = "OperationMode";
     public final static String ACTION_PARAMETER_ALARMACTUATOR_ONSTATE = "OnState";
     public final static String ACTION_PARAMETER_DIMMERACTUATOR_VALUE = "DimLevel";
+    public final static String ACTION_PARAMETER_ROLLERSHUTTERACTUATOR_VALUE = "ShutterLevel";
 
     /**
      * Constructs a new {@link SetStateAction}.
@@ -78,7 +79,11 @@ public class SetStateAction extends Action {
         if (capabilityType.equals(Capability.TYPE_DIMMERACTUATOR)) {
             parameterList.add(new ActionParameter(ACTION_PARAMETER_DIMMERACTUATOR_VALUE, "/entity/Constant",
                     new Constant(newValue)));
+        } else if (capabilityType.equals(Capability.TYPE_ROLLERSHUTTERACTUATOR)) {
+            parameterList.add(new ActionParameter(ACTION_PARAMETER_ROLLERSHUTTERACTUATOR_VALUE, "/entity/Constant",
+                    new Constant(newValue)));
         }
+
         setParameterList(parameterList);
     }
 

@@ -26,6 +26,7 @@ public class Capability extends ConfigPropertyList {
     public final static String TYPE_LUMINANCESENSOR = "LuminanceSensor";
     public final static String TYPE_PUSHBUTTONSENSOR = "PushButtonSensor";
     public final static String TYPE_DIMMERACTUATOR = "DimmerActuator";
+    public final static String TYPE_ROLLERSHUTTERACTUATOR = "RollerShutterActuator";
 
     /**
      * Unique id for the Capability.
@@ -267,11 +268,19 @@ public class Capability extends ConfigPropertyList {
 
     /**
      * Returns true, if the {@link Capability} is of type DimmerActuator.
-     * 
+     *
      * @return
      */
     public boolean isTypeDimmerActuator() {
         return getType().equals(TYPE_DIMMERACTUATOR);
     }
 
+    /**
+     * Returns true, if the {@link Capability} is of type RollerShutterActuator.
+     *
+     * @return
+     */
+    public boolean isTypeRollerShutterActuator() {
+        return getType().equals(TYPE_ROLLERSHUTTERACTUATOR);
+    }
 }
