@@ -18,6 +18,7 @@ public class Device extends ConfigPropertyList {
 
     public final static String DEVICE_TYPE_SHC = "SHC";
     public final static String DEVICE_MANUFACTURER_RWE = "RWE";
+    public final static String DEVICE_MANUFACTURER_INNOGY = "innogy";
 
     /**
      * Unique id for the device, always available in model.
@@ -495,6 +496,15 @@ public class Device extends ConfigPropertyList {
      */
     public boolean isRWEDevice() {
         return DEVICE_MANUFACTURER_RWE.equals(manufacturer);
+    }
+
+    /**
+     * Returns true, if the device is made by innogy.
+     *
+     * @return
+     */
+    public boolean isInnogyDevice() {
+        return DEVICE_MANUFACTURER_INNOGY.equals(manufacturer);
     }
 
     /**
