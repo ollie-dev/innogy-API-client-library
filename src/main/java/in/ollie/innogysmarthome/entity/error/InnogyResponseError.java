@@ -19,6 +19,7 @@ public class InnogyResponseError {
     public static final int ERR_INTERNAL_API_ERROR = 1003;
     public static final int ERR_INVALID_SHC_OPERATION = 1004;
     public static final int ERR_MISSING_ARGUMENT_OR_WRONG_VALUE = 1005;
+    public static final int ERR_SERVICE_TOO_BUSY = 1006;
 
     // Authentication and authorization errors
     public static final int ERR_UNKNOWN_AUTHENTICATION_ERROR = 2000;
@@ -34,6 +35,7 @@ public class InnogyResponseError {
     public static final int ERR_REMOTE_ACCESS_NOT_ALLOWED = 2010;
     public static final int ERR_INSUFFICIENT_PERMISSIONS = 2011;
     public static final int ERR_SESSION_NOT_FOUND = 2012;
+    public static final int ERR_ACCOUNT_TEMPORARY_LOCKED = 2013;
 
     // Entities
     public static final int ERR_ENTITY_DOES_NOT_EXIST = 3000;
