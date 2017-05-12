@@ -27,6 +27,13 @@ public class Capability extends ConfigPropertyList {
     public final static String TYPE_PUSHBUTTONSENSOR = "PushButtonSensor";
     public final static String TYPE_DIMMERACTUATOR = "DimmerActuator";
     public final static String TYPE_ROLLERSHUTTERACTUATOR = "RollerShutterActuator";
+    public final static String TYPE_ENERGYCONSUMPTIONSENSOR = "EnergyConsumptionSensor";
+    public final static String TYPE_POWERCONSUMPTIONSENSOR = "PowerConsumptionSensor";
+    public final static String TYPE_GENERATIONMETERENERGYSENSOR = "GenerationMeterEnergySensor";
+    public final static String TYPE_GENERATIONMETERPOWERCONSUMPTIONSENSOR = "GenerationMeterPowerConsumptionSensor";
+    public final static String TYPE_TWOWAYMETERENERGYCONSUMPTIONSENSOR = "TwoWayMeterEnergyConsumptionSensor";
+    public final static String TYPE_TWOWAYMETERENERGYFEEDSENSOR = "TwoWayMeterEnergyFeedSensor";
+    public final static String TYPE_TWOWAYMETERPOWERCONSUMPTIONSENSOR = "TwoWayMeterPowerConsumptionSensor";
 
     /**
      * Unique id for the Capability.
@@ -282,5 +289,68 @@ public class Capability extends ConfigPropertyList {
      */
     public boolean isTypeRollerShutterActuator() {
         return getType().equals(TYPE_ROLLERSHUTTERACTUATOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type EnergyConsumptionSensor.
+     *
+     * @return
+     */
+    public boolean isTypeEnergyConsumptionSensor() {
+        return getType().equals(TYPE_ENERGYCONSUMPTIONSENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type PowerConsumptionSensor.
+     *
+     * @return
+     */
+    public boolean isTypePowerConsumptionSensor() {
+        return getType().equals(TYPE_POWERCONSUMPTIONSENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type GenerationMeterEnergySensor.
+     *
+     * @return
+     */
+    public boolean isTypeGenerationMeterEnergySensor() {
+        return getType().equals(TYPE_GENERATIONMETERENERGYSENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type GenerationMeterPowerConsumptionSensor.
+     *
+     * @return
+     */
+    public boolean isTypeGenerationMeterPowerConsumptionSensor() {
+        return getType().equals(TYPE_GENERATIONMETERPOWERCONSUMPTIONSENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type TwoWayMeterEnergyConsumptionSensor.
+     *
+     * @return
+     */
+    public boolean isTypeTwoWayMeterEnergyConsumptionSensor() {
+        return getType().equals(TYPE_TWOWAYMETERENERGYCONSUMPTIONSENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type TwoWayMeterEnergyFeedSensor.
+     *
+     * @return
+     */
+    public boolean isTypeTwoWayMeterEnergyFeedSensor() {
+        return getType().equals(TYPE_TWOWAYMETERENERGYFEEDSENSOR);
+    }
+
+    /**
+     * Returns true, if the {@link Capability} is of type TwoWayMeterPowerConsumptionSensor.
+     *
+     * @return
+     */
+    public boolean isTypeTwoWayMeterPowerConsumptionSensor() {
+        return getType().equals(TYPE_TWOWAYMETERPOWERCONSUMPTIONSENSOR);
     }
 }

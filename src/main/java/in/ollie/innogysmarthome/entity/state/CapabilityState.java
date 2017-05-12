@@ -20,6 +20,37 @@ public class CapabilityState extends EntityState {
     public final static String STATE_NAME_DIMMER_ACTUATOR = "DimLevel";
     public final static String STATE_NAME_ROLLERSHUTTER_ACTUATOR = "ShutterLevel";
 
+    // ENERGY CONSUMPTION SENSOR
+    public final static String STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_MONTH_KWH = "EnergyConsumptionMonthKWh";
+    public final static String STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ABSOLUTE_ENERGY_CONSUMPTION = "AbsoluteEnergyConsumption";
+    public final static String STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_MONTH_EURO = "EnergyConsumptionMonthEuro";
+    public final static String STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_DAY_EURO = "EnergyConsumptionDayEuro";
+    public final static String STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_DAY_KWH = "EnergyConsumptionDayKWh";
+    // POWER CONSUMPTION SENSOR
+    public final static String STATE_NAME_POWER_CONSUMPTION_SENSOR_POWER_CONSUMPTION_WATT = "PowerConsumptionWatt";
+    // GENERATION METER ENERGY SENSOR
+    public final static String STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_MONTH_IN_KWH = "EnergyPerMonthInKWh";
+    public final static String STATE_NAME_GENERATION_METER_ENERGY_SENSOR_TOTAL_ENERGY = "TotalEnergy";
+    public final static String STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_MONTH_IN_EURO = "EnergyPerMonthInEuro";
+    public final static String STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_DAY_IN_EURO = "EnergyPerDayInEuro";
+    public final static String STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_DAY_IN_KWH = "EnergyPerDayInKWh";
+    // GENERATION METER POWER CONSUMPTION SENSOR
+    public final static String STATE_NAME_GENERATION_METER_POWER_CONSUMPTION_SENSOR_POWER_IN_WATT = "PowerInWatt";
+    // TWO WAY METER ENERGY CONSUMPTION SENSOR
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_MONTH_IN_KWH = "EnergyPerMonthInKWh";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_TOTAL_ENERGY = "TotalEnergy";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_MONTH_IN_EURO = "EnergyPerMonthInEuro";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_DAY_IN_EURO = "EnergyPerDayInEuro";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_DAY_IN_KWH = "EnergyPerDayInKWh";
+    // TWO WAY METER ENERGY FEED SENSOR
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_MONTH_IN_KWH = "EnergyPerMonthInKWh";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_TOTAL_ENERGY = "TotalEnergy";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_MONTH_IN_EURO = "EnergyPerMonthInEuro";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_DAY_IN_EURO = "EnergyPerDayInEuro";
+    public final static String STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_DAY_IN_KWH = "EnergyPerDayInKWh";
+    // TWO WAY METER POWER CONSUMPTION SENSOR
+    public final static String STATE_NAME_TWO_WAY_METER_POWER_CONSUMPTION_SENSOR_POWER_IN_WATT = "PowerInWatt";
+
     public final static String STATE_VALUE_OPERATION_MODE_AUTO = "Auto";
     public final static String STATE_VALUE_OPERATION_MODE_MANUAL = "Manu";
 
@@ -169,6 +200,197 @@ public class CapabilityState extends EntityState {
 
     public void setRollerShutterActuatorState(double rollerShutterLevel) {
         setPropertyValueAsDouble(STATE_NAME_ROLLERSHUTTER_ACTUATOR, rollerShutterLevel);
+    }
+
+    // ENERGY CONSUMPTION SENSOR
+    public Double getEnergyConsumptionSensorEnergyConsumptionMonthKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_MONTH_KWH);
+    }
+
+    public void setEnergyConsumptionSensorEnergyConsumptionMonthKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_MONTH_KWH, state);
+    }
+
+    public Double getEnergyConsumptionSensorAbsoluteEnergyConsumptionState() {
+        return getPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ABSOLUTE_ENERGY_CONSUMPTION);
+    }
+
+    public void setEnergyConsumptionSensorAbsoluteEnergyConsumptionState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ABSOLUTE_ENERGY_CONSUMPTION, state);
+    }
+
+    public Double getEnergyConsumptionSensorEnergyConsumptionMonthEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_MONTH_EURO);
+    }
+
+    public void setEnergyConsumptionSensorEnergyConsumptionMonthEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_MONTH_EURO, state);
+    }
+
+    public Double getEnergyConsumptionSensorEnergyConsumptionDayEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_DAY_EURO);
+    }
+
+    public void setEnergyConsumptionSensorEnergyConsumptionDayEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_DAY_EURO, state);
+    }
+
+    public Double getEnergyConsumptionSensorEnergyConsumptionDayKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_DAY_KWH);
+    }
+
+    public void setEnergyConsumptionSensorEnergyConsumptionDayKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_ENERGY_CONSUMPTION_SENSOR_ENERGY_CONSUMPTION_DAY_KWH, state);
+    }
+
+    // POWER CONSUMPTION SENSOR
+    public Double getPowerConsumptionSensorPowerConsumptionWattState() {
+        return getPropertyValueAsDouble(STATE_NAME_POWER_CONSUMPTION_SENSOR_POWER_CONSUMPTION_WATT);
+    }
+
+    public void setPowerConsumptionSensorPowerConsumptionWattState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_POWER_CONSUMPTION_SENSOR_POWER_CONSUMPTION_WATT, state);
+    }
+
+    // GENERATION METER ENGERY SENSOR
+    public Double getGenerationMeterEnergySensorEnergyPerMonthInKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_MONTH_IN_KWH);
+    }
+
+    public void setGenerationMeterEnergySensorEnergyPerMonthInKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_MONTH_IN_KWH, state);
+    }
+
+    public Double getGenerationMeterEnergySensorTotalEnergyState() {
+        return getPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_TOTAL_ENERGY);
+    }
+
+    public void setGenerationMeterEnergySensorTotalEnergyState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_TOTAL_ENERGY, state);
+    }
+
+    public Double getGenerationMeterEnergySensorEnergyPerMonthInEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_MONTH_IN_EURO);
+    }
+
+    public void setGenerationMeterEnergySensorEnergyPerMonthInEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_MONTH_IN_EURO, state);
+    }
+
+    public Double getGenerationMeterEnergySensorEnergyPerDayInEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_DAY_IN_EURO);
+    }
+
+    public void setGenerationMeterEnergySensorEnergyPerDayInEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_DAY_IN_EURO, state);
+    }
+
+    public Double getGenerationMeterEnergySensorEnergyPerDayInKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_DAY_IN_KWH);
+    }
+
+    public void setGenerationMeterEnergySensorEnergyPerDayInKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_GENERATION_METER_ENERGY_SENSOR_ENERGY_PER_DAY_IN_KWH, state);
+    }
+
+    // GENERATION METER POWER CONSUMPTION SENSOR
+    public Double getGenerationMeterPowerConsumptionSensorPowerInWattState() {
+        return getPropertyValueAsDouble(STATE_NAME_GENERATION_METER_POWER_CONSUMPTION_SENSOR_POWER_IN_WATT);
+    }
+
+    public void setGenerationMeterPowerConsumptionSensorPowerInWattState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_GENERATION_METER_POWER_CONSUMPTION_SENSOR_POWER_IN_WATT, state);
+    }
+
+    // TWO WAY METER ENERGY CONSUMPTION SENSOR
+    public Double getTwoWayMeterEnergyConsumptionSensorEnergyPerMonthInKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_MONTH_IN_KWH);
+    }
+
+    public void setTwoWayMeterEnergyConsumptionSensorEnergyPerMonthInKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_MONTH_IN_KWH, state);
+    }
+
+    public Double getTwoWayMeterEnergyConsumptionSensorTotalEnergyState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_TOTAL_ENERGY);
+    }
+
+    public void setTwoWayMeterEnergyConsumptionSensorTotalEnergyState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_TOTAL_ENERGY, state);
+    }
+
+    public Double getTwoWayMeterEnergyConsumptionSensorEnergyPerMonthInEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_MONTH_IN_EURO);
+    }
+
+    public void setTwoWayMeterEnergyConsumptionSensorEnergyPerMonthInEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_MONTH_IN_EURO, state);
+    }
+
+    public Double getTwoWayMeterEnergyConsumptionSensorEnergyPerDayInEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_DAY_IN_EURO);
+    }
+
+    public void setTwoWayMeterEnergyConsumptionSensorEnergyPerDayInEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_DAY_IN_EURO, state);
+    }
+
+    public Double getTwoWayMeterEnergyConsumptionSensorEnergyPerDayInKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_DAY_IN_KWH);
+    }
+
+    public void setTwoWayMeterEnergyConsumptionSensorEnergyPerDayInKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_CONSUMPTION_SENSOR_ENERGY_PER_DAY_IN_KWH, state);
+    }
+
+    // TWO WAY METER ENERGY FEED SENSOR
+    public Double getTwoWayMeterEnergyFeedSensorEnergyPerMonthInKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_MONTH_IN_KWH);
+    }
+
+    public void setTwoWayMeterEnergyFeedSensorEnergyPerMonthInKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_MONTH_IN_KWH, state);
+    }
+
+    public Double getTwoWayMeterEnergyFeedSensorTotalEnergyState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_TOTAL_ENERGY);
+    }
+
+    public void setTwoWayMeterEnergyFeedSensorTotalEnergyState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_TOTAL_ENERGY, state);
+    }
+
+    public Double getTwoWayMeterEnergyFeedSensorEnergyPerMonthInEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_MONTH_IN_EURO);
+    }
+
+    public void setTwoWayMeterEnergyFeedSensorEnergyPerMonthInEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_MONTH_IN_EURO, state);
+    }
+
+    public Double getTwoWayMeterEnergyFeedSensorEnergyPerDayInEuroState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_DAY_IN_EURO);
+    }
+
+    public void setTwoWayMeterEnergyFeedSensorEnergyPerDayInEuroState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_DAY_IN_EURO, state);
+    }
+
+    public Double getTwoWayMeterEnergyFeedSensorEnergyPerDayInKWhState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_DAY_IN_KWH);
+    }
+
+    public void setTwoWayMeterEnergyFeedSensorEnergyPerDayInKWhState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_ENERGY_FEED_SENSOR_ENERGY_PER_DAY_IN_KWH, state);
+    }
+
+    // TWO WAY METER POWER CONSUMPTION SENSOR
+    public Double getTwoWayMeterPowerConsumptionSensorPowerInWattState() {
+        return getPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_POWER_CONSUMPTION_SENSOR_POWER_IN_WATT);
+    }
+
+    public void setTwoWayMeterPowerConsumptionSensorPowerInWattState(double state) {
+        setPropertyValueAsDouble(STATE_NAME_TWO_WAY_METER_POWER_CONSUMPTION_SENSOR_POWER_IN_WATT, state);
     }
 
 }

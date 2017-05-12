@@ -46,9 +46,13 @@ public abstract class ConfigPropertyList extends PropertyList {
     protected final static String CONFIG_PROPERTY_REGISTRATION_TIME = "RegistrationTime";
     protected final static String CONFIG_PROPERTY_DISPLAY_CURRENT_TEMPERATURE = "DisplayCurrentTemperature";
     protected final static String CONFIG_PROPERTY_UNDERLYING_DEVICE_IDS = "UnderlyingDeviceIds";
+    protected final static String CONFIG_PROPERTY_METER_ID = "MeterId";
+    protected final static String CONFIG_PROPERTY_METER_FIRMWARE_VERSION = "MeterFirmwareVersion";
+    protected final static String CONFIG_PROPERTY_DEVICE_TYPE = "DeviceType";
 
     protected final static String PROTOCOL_ID_COSIP = "Cosip";
     protected final static String PROTOCOL_ID_VIRTUAL = "Virtual";
+    protected final static String PROTOCOL_ID_WMBUS = "wMBus";
 
     /**
      * This represents a container of all configuration properties.
@@ -102,7 +106,7 @@ public abstract class ConfigPropertyList extends PropertyList {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see in.ollie.innogysmarthome.entity.PropertyList#getPropertyList()
      */
     @Override
@@ -269,5 +273,17 @@ public abstract class ConfigPropertyList extends PropertyList {
 
     public String getUnderLyingDeviceIds() {
         return getPropertyValueAsString(CONFIG_PROPERTY_UNDERLYING_DEVICE_IDS);
+    }
+
+    public String getMeterId() {
+        return getPropertyValueAsString(CONFIG_PROPERTY_METER_ID);
+    }
+
+    public String getMeterFirmwareVersion() {
+        return getPropertyValueAsString(CONFIG_PROPERTY_METER_FIRMWARE_VERSION);
+    }
+
+    public String getDeviceType() {
+        return getPropertyValueAsString(CONFIG_PROPERTY_DEVICE_TYPE);
     }
 }

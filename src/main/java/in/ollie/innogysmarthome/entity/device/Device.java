@@ -522,7 +522,25 @@ public class Device extends ConfigPropertyList {
      * @return
      */
     public boolean isRadioDevice() {
+        return PROTOCOL_ID_COSIP.equals(getProtocolId()) || PROTOCOL_ID_WMBUS.equals(getProtocolId());
+    }
+
+    /**
+     * Returns true, if the {@link Device} is a CoSip device.
+     *
+     * @return
+     */
+    public boolean isCoSipDevice() {
         return PROTOCOL_ID_COSIP.equals(getProtocolId());
+    }
+
+    /**
+     * Returns true, if the {@link Device} is a W-Mbus device.
+     *
+     * @return
+     */
+    public boolean isWMBusDevice() {
+        return PROTOCOL_ID_WMBUS.equals(getProtocolId());
     }
 
     @Override
