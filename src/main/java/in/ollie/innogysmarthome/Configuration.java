@@ -12,32 +12,33 @@ public class Configuration {
     private String refreshToken = null;
     private String clientId = null;
     private String clientSecret = null;
+    private String redirectUrl = null;
 
     /**
-     * Creates a new {@link Configuration} and set the given clientId, clientSecret, authCode, accessToken and
-     * refreshToken. The
-     * other configurations will be set to default.
+     * Creates a new {@link Configuration} and set the given clientId, clientSecret, redirectUrl, authCode, accessToken
+     * and refreshToken. The other configurations will be set to default.
      *
      * @param clientId
      * @param clientSecret
+     * @param redirectUrl
      * @param authCode
      * @param accessToken
      * @param refreshToken
      */
-    public Configuration(String clientId, String clientSecret, String authCode, String accessToken,
+    public Configuration(String clientId, String clientSecret, String redirectUrl, String authCode, String accessToken,
             String refreshToken) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+        this.redirectUrl = redirectUrl;
         this.authCode = authCode;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
 
     /**
-     * Creates a {@link Configuration} with default values.
+     * Creates an empty {@link Configuration}.
      */
     public Configuration() {
-        // config with default values
     }
 
     /**
@@ -63,7 +64,8 @@ public class Configuration {
      * @return true if everything seems fine or false, if one of those are missing.
      */
     public boolean checkClientData() {
-        if (clientId == null || "".equals(clientId) || clientSecret == null || "".equals(clientSecret)) {
+        if (clientId == null || "".equals(clientId) || clientSecret == null || "".equals(clientSecret)
+                || redirectUrl == null || "".equals(redirectUrl)) {
             return false;
         } else {
             return true;
@@ -162,6 +164,20 @@ public class Configuration {
         this.clientSecret = clientSecret;
     }
 
+    /**
+     * @return the redirectUrl
+     */
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    /**
+     * @param redirectUrl the redirectUrl
+     */
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
+
     @Override
     public String toString() {
         String simplifiedAccessToken = "";
@@ -176,8 +192,9 @@ public class Configuration {
                     + refreshToken.substring(refreshToken.length() - 5);
         }
 
-        return "Config [clientId=" + clientId + ", clientSecret=" + clientSecret + ", authCode=" + authCode
-                + ", accessToken=" + simplifiedAccessToken + ", refreshToken=" + simplifiedRefreshToken + "]";
+        return "Config [clientId=" + clientId + ", clientSecret=" + clientSecret + ", redirectUrl=" + redirectUrl
+                + ", authCode=" + authCode + ", accessToken=" + simplifiedAccessToken + ", refreshToken="
+                + simplifiedRefreshToken + "]";
     }
 
     /**
@@ -190,8 +207,8 @@ public class Configuration {
      * @return
      */
     public String toStringWithSecrets() {
-        return "Config [clientId=" + clientId + ", clientSecret=" + clientSecret + ", authCode=" + authCode
-                + ", accessToken=" + accessToken + ", refreshToken=" + refreshToken + "]";
+        return "Config [clientId=" + clientId + ", clientSecret=" + clientSecret + ", redirectUrl=" + redirectUrl
+                + ", authCode=" + authCode + ", accessToken=" + accessToken + ", refreshToken=" + refreshToken + "]";
     }
 
 }

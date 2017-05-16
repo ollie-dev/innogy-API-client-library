@@ -213,7 +213,7 @@ public class InnogyClient {
         try {
             logger.debug("Trying to get access token");
             TokenResponse response = new AuthorizationCodeTokenRequest(httpTransport, jsonFactory,
-                    new GenericUrl(API_URL_TOKEN), config.getAuthCode()).setRedirectUri(REDIRECT_URL)
+                    new GenericUrl(API_URL_TOKEN), config.getAuthCode()).setRedirectUri(config.getRedirectUrl())
                             .setClientAuthentication(
                                     new BasicAuthentication(config.getClientId(), config.getClientSecret()))
                             .execute();

@@ -11,10 +11,10 @@ public class Constants {
             "WMDO", "WSC2", "BRC8");
 
     // API URLs
+    public final static String API_HOST = "api.services-smarthome.de";
     public final static String API_VERSION = "1.0";
-    public final static String REDIRECT_URL = "https://www.ollie.in/rwe-smarthome-token/";
-    public final static String API_URL_TOKEN = "https://api.services-smarthome.de/AUTH/token";
-    public final static String API_URL_BASE = "https://api.services-smarthome.de/API/" + API_VERSION;
+    public final static String API_URL_BASE = "https://" + API_HOST + "/API/" + API_VERSION;
+    public final static String API_URL_TOKEN = "https://" + API_HOST + "/AUTH/token";
 
     public final static String API_URL_CHECK_CONNECTION = API_URL_BASE + "/desc/device/SHC.RWE/1.0/event/StateChanged";
     public final static String API_URL_INITIALIZE = API_URL_BASE + "/initialize";
@@ -33,10 +33,8 @@ public class Constants {
 
     public final static String API_URL_MESSAGE = API_URL_BASE + "/message";
 
-    public final static String API_URL_EVENTS = "wss://api.services-smarthome.de/API/" + API_VERSION
-            + "/events?token={token}";
-
-    public final static String API_URL_ACTION = "https://api.services-smarthome.de/API/1.0/action";
+    public final static String API_URL_EVENTS = "wss://" + API_HOST + "/API/" + API_VERSION + "/events?token={token}";
+    public final static String API_URL_ACTION = API_URL_BASE + "/action";
 
     // others
     public final static String FORMAT_DATETIME = "dd.MM.yyyy HH:mm:ss";
