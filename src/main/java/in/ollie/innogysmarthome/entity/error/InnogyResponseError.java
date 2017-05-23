@@ -7,11 +7,6 @@ import com.google.gson.Gson;
 
 public class InnogyResponseError {
 
-    public static InnogyResponseError getInstance(String content) {
-        Gson gson = new Gson();
-        return gson.fromJson(content, InnogyResponseError.class);
-    }
-
     // General errors
     public static final int ERR_UNKNOWN = 1000;
     public static final int ERR_SERVICE_UNAVAILABLE = 1001;
@@ -71,4 +66,8 @@ public class InnogyResponseError {
     @Key("messages")
     public List<String> messages;
 
+    public static InnogyResponseError getInstance(String content) {
+        Gson gson = new Gson();
+        return gson.fromJson(content, InnogyResponseError.class);
+    }
 }
