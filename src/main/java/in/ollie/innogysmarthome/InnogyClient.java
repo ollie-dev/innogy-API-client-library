@@ -19,6 +19,7 @@ import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.Credential.Builder;
 import com.google.api.client.auth.oauth2.CredentialRefreshListener;
+import com.google.api.client.auth.oauth2.RefreshTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.http.BasicAuthentication;
@@ -110,9 +111,12 @@ public class InnogyClient {
             throw new ConfigurationException("Invalid configuration: clientId and clientSecret must not be empty!");
         }
 
-        if (!config.checkTokens()) {
+        if (!config.checkRefreshToken()) {
             // tokens missing, so try to get them via oauth2 from innogy backend
             getOAuth2Tokens();
+        }
+        if (!config.checkAccessToken()) {
+            getAccessToken();
         }
 
         initializeSession();
@@ -194,8 +198,8 @@ public class InnogyClient {
     }
 
     /**
-     * Fetches the oauth2 tokens from innogy SmartHome service. The needed authcode must be set in the
-     * {@Link Configuration}.
+     * Fetches the oauth2 tokens from innogy SmartHome service and saves them in the {@Link Configuration}. The needed
+     * authcode must be set in the {@Link Configuration}.
      *
      * Throws an {@link UnauthorizedException}, if the authcode is missing.
      * Throws an {@link ApiException} on an unexpected error with the API.
@@ -211,19 +215,46 @@ public class InnogyClient {
         }
 
         try {
-            logger.debug("Trying to get access token");
+            logger.debug("Trying to get access and refresh tokens");
             TokenResponse response = new AuthorizationCodeTokenRequest(httpTransport, jsonFactory,
                     new GenericUrl(API_URL_TOKEN), config.getAuthCode()).setRedirectUri(config.getRedirectUrl())
                             .setClientAuthentication(
                                     new BasicAuthentication(config.getClientId(), config.getClientSecret()))
                             .execute();
-            logger.debug("Saving access tokens.");
+            logger.debug("Saving access and refresh tokens.");
             config.setAccessToken(response.getAccessToken());
             config.setRefreshToken(response.getRefreshToken());
         } catch (TokenResponseException e) {
             throw new InvalidAuthCodeException("Error fetching access token: " + e.getDetails());
         }
 
+    }
+
+    /**
+     * Fetches the access token from innogy SmartHome service and saves it in the {@Link Configuration}. The needed
+     * refreshToken must be set in the {@Link Configuration}.
+     *
+     * Throws an {@link UnauthorizedException}, if the authcode is missing.
+     * Throws an {@link ApiException} on an unexpected error with the API.
+     * Throws an {@link IOException} on any I/O error.
+     *
+     * @throws IOException
+     * @throws ApiException
+     * @throws ConfigurationException thrown if the refreshToken is not set in the {@link Configuration}
+     */
+    private void getAccessToken() throws IOException, ConfigurationException {
+        if (!config.checkRefreshToken()) {
+            throw new ConfigurationException("Invalid configuration: refreshToken must not be empty!");
+        }
+
+        logger.debug("Trying to get access token");
+        TokenResponse response = new RefreshTokenRequest(httpTransport, jsonFactory, new GenericUrl(API_URL_TOKEN),
+                config.getRefreshToken())
+                        .setClientAuthentication(
+                                new BasicAuthentication(config.getClientId(), config.getClientSecret()))
+                        .execute();
+        logger.debug("Saving access token.");
+        config.setAccessToken(response.getAccessToken());
     }
 
     /**

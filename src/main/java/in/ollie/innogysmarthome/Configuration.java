@@ -1,5 +1,7 @@
 package in.ollie.innogysmarthome;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * The {@link Configuration} contains all configurations for the innogy SmartHome library.
  *
@@ -15,8 +17,23 @@ public class Configuration {
     private String redirectUrl = null;
 
     /**
+     * Creates a new {@link Configuration} and set the given clientId, clientSecret, redirectUrl and refreshToken.
+     *
+     * @param clientId
+     * @param clientSecret
+     * @param redirectUrl
+     * @param refreshToken
+     */
+    public Configuration(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.redirectUrl = redirectUrl;
+        this.refreshToken = refreshToken;
+    }
+
+    /**
      * Creates a new {@link Configuration} and set the given clientId, clientSecret, redirectUrl, authCode, accessToken
-     * and refreshToken. The other configurations will be set to default.
+     * and refreshToken.
      *
      * @param clientId
      * @param clientSecret
@@ -51,8 +68,8 @@ public class Configuration {
         if (!checkClientData()) {
             return false;
         }
-        if (authCode == null || "".equals(authCode)) {
-            return checkTokens();
+        if (StringUtils.isEmpty(authCode)) {
+            return checkRefreshToken();
         } else {
             return true;
         }
@@ -64,8 +81,7 @@ public class Configuration {
      * @return true if everything seems fine or false, if one of those are missing.
      */
     public boolean checkClientData() {
-        if (clientId == null || "".equals(clientId) || clientSecret == null || "".equals(clientSecret)
-                || redirectUrl == null || "".equals(redirectUrl)) {
+        if (StringUtils.isEmpty(clientId) || StringUtils.isEmpty(clientSecret) || StringUtils.isEmpty(redirectUrl)) {
             return false;
         } else {
             return true;
@@ -73,12 +89,25 @@ public class Configuration {
     }
 
     /**
-     * Checks, if the {@link Configuration} includes the access tokens.
+     * Checks, if the {@link Configuration} includes the refresh token.
      *
      * @return
      */
-    public boolean checkTokens() {
-        if (accessToken == null || "".equals(accessToken) || refreshToken == null || "".equals(refreshToken)) {
+    public boolean checkRefreshToken() {
+        if (StringUtils.isEmpty(refreshToken)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Checks, if the {@link Configuration} includes the access token.
+     *
+     * @return
+     */
+    public boolean checkAccessToken() {
+        if (StringUtils.isEmpty(accessToken)) {
             return false;
         } else {
             return true;
@@ -183,11 +212,11 @@ public class Configuration {
         String simplifiedAccessToken = "";
         String simplifiedRefreshToken = "";
 
-        if (accessToken != null) {
+        if (!StringUtils.isEmpty(accessToken)) {
             simplifiedAccessToken = accessToken.substring(0, 10) + "..."
                     + accessToken.substring(accessToken.length() - 10);
         }
-        if (refreshToken != null) {
+        if (!StringUtils.isEmpty(refreshToken)) {
             simplifiedRefreshToken = refreshToken.substring(0, 5) + "..."
                     + refreshToken.substring(refreshToken.length() - 5);
         }
