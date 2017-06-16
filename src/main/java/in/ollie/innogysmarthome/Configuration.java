@@ -62,7 +62,7 @@ public class Configuration {
      * Checks, if the {@link Configuration} is complete and all relevant properties for a successful
      * communication with the innogy SmartHome service are set.
      *
-     * @return
+     * @return true, if the {@link Configuration} is valid
      */
     public boolean check() {
         if (!checkClientData()) {
