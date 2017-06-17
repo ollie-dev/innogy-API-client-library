@@ -17,6 +17,28 @@ import in.ollie.innogysmarthome.entity.state.DeviceState;
 public class Device extends ConfigPropertyList {
 
     public final static String DEVICE_TYPE_SHC = "SHC";
+    public final static String DEVICE_TYPE_ANALOG_METER = "AnalogMeter";
+    public final static String DEVICE_TYPE_BRC8 = "BRC8";
+    public final static String DEVICE_TYPE_GENERATION_METER = "GenerationMeter";
+    public final static String DEVICE_TYPE_ISC2 = "ISC2";
+    public final static String DEVICE_TYPE_ISD2 = "ISD2";
+    public final static String DEVICE_TYPE_ISR2 = "ISR2";
+    public final static String DEVICE_TYPE_ISS2 = "ISS2";
+    public final static String DEVICE_TYPE_PSD = "PSD";
+    public final static String DEVICE_TYPE_PSS = "PSS";
+    public final static String DEVICE_TYPE_PSSO = "PSSO";
+    public final static String DEVICE_TYPE_RST = "RST";
+    public final static String DEVICE_TYPE_SMARTMETER = "SmartMeter";
+    public final static String DEVICE_TYPE_TWO_WAY_METER = "TwoWayMeter";
+    public final static String DEVICE_TYPE_VARIABLE_ACTUATOR = "VariableActuator";
+    public final static String DEVICE_TYPE_WDS = "WDS";
+    public final static String DEVICE_TYPE_WMD = "WMD";
+    public final static String DEVICE_TYPE_WMDO = "WMDO";
+    public final static String DEVICE_TYPE_WRT = "WRT";
+    public final static String DEVICE_TYPE_WSC2 = "WSC2";
+    public final static String DEVICE_TYPE_WSD = "WSD";
+    public final static String DEVICE_TYPE_WSD2 = "WSD2";
+
     public final static String DEVICE_MANUFACTURER_RWE = "RWE";
     public final static String DEVICE_MANUFACTURER_INNOGY = "innogy";
 
