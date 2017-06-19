@@ -83,11 +83,7 @@ public abstract class ConfigPropertyList extends PropertyList {
      * @return
      */
     public boolean hasConfigProperties() {
-        if (configList != null && !configList.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return (configList != null && !configList.isEmpty());
     }
 
     /*

@@ -63,10 +63,6 @@ public class JSONResponseHandler {
      * @return true, if successful
      */
     public static boolean checkResponse(JsonElement jsonResponse) {
-        if (jsonResponse == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return (jsonResponse != null);
     }
 }

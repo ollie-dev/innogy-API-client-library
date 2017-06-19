@@ -495,11 +495,7 @@ public class Device extends ConfigPropertyList {
      * @return
      */
     public boolean hasMessages() {
-        if (messageList != null && !messageList.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return (messageList != null && !messageList.isEmpty());
     }
 
     /**

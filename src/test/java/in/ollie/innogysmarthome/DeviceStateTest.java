@@ -1,4 +1,5 @@
 package in.ollie.innogysmarthome;
+
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -16,8 +17,8 @@ import in.ollie.innogysmarthome.entity.state.DeviceState;
 
 public class DeviceStateTest {
 
-    DeviceState dsSHC;
-    DeviceState dsWMD;
+    private DeviceState dsSHC;
+    private DeviceState dsWMD;
 
     @Before
     public void setUp() {
