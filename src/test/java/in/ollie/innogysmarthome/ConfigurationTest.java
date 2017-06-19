@@ -1,9 +1,8 @@
+package in.ollie.innogysmarthome;
+
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import in.ollie.innogysmarthome.Configuration;
 
 public class ConfigurationTest {
 
@@ -13,10 +12,6 @@ public class ConfigurationTest {
     private final static String REFRESH_TOKEN = "1234567890abcdef";
     private final static String AUTH_CODE = "1234567890abcdef";
     private final static String ACCESS_TOKEN = "eyJ0eXAiOiJzI1NiIsIng1dCI6IkxQajZ1bjFQMFh6blNuYnZXSXgKV1QiLCJhbGciOiJSUxTHJFemJmUSJ9.eyJjbGllbnRfaWQiO6Im9rdWhsLWRldiIsImRldmljZSI6IjkxNDEwMDAiIyNDYzNTc0OCIsInN1YiIwNzk5NiIsImNsaWVmFudCI6IlJXRSIsInVzZXJfcGVybWlzc2lvbnMiOiJGRkudF9wZXJtaXNzaW9ucyI6IkRGRiIsInRlbZGRkZGRkZGRkZGRkZGIiwic2Vzc2lvbiI6ImM2MzQ1NmExOWUxYTQ5ZGFhNzhjNWIyMWFkN2EzOWFkIiwiaXNzIjoiU21hcnRIb21lQVBJIiwiYXVkIjoiYWxsIiwiZXhwIjoxNDkzMzE3NTQ1LCJuYmYiOjE0OTMxNDQ3NDV9.qpihZZgtpyyvpM-rpoQKG-1_Tvox07hJbKxhbORubiILzcmfcXppX5FFWLN1_3Bshr0WYQYndYguyiD1LYqbRjyT1mWvBmIwrbcbBy1b8HwTxJBdb2l4dEaLckYkM4SE6LQfcJc35Ybxxsr43cPmcKnoP1LfV3iRwaXunAD_4Zrlp_rwhl6jLpkzZAHnurxrU2AKTYF-Rx73ThCcd4zr5wh9NQ3x4cmr3sAGG4jCkHzCqxOXyoSuh5Y59fdXaDVSL2iOtSu6ZMxPoFmBoX6rNjXdtWWHSsRrHLkqDENb6Gcexx4Qrp__DkCUoeLvLDdn13Tjb5rxEfSDNWwd0CeYTQ";
-
-    @Before
-    public void setUp() {
-    }
 
     @Test
     public void testConstructors() {

@@ -1,3 +1,4 @@
+package in.ollie.innogysmarthome;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
