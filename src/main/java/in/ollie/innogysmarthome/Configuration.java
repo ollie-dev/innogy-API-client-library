@@ -81,11 +81,8 @@ public class Configuration {
      * @return true if everything seems fine or false, if one of those are missing.
      */
     public boolean checkClientData() {
-        if (StringUtils.isEmpty(clientId) || StringUtils.isEmpty(clientSecret) || StringUtils.isEmpty(redirectUrl)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(StringUtils.isEmpty(clientId) || StringUtils.isEmpty(clientSecret)
+                || StringUtils.isEmpty(redirectUrl));
     }
 
     /**
@@ -94,11 +91,7 @@ public class Configuration {
      * @return
      */
     public boolean checkRefreshToken() {
-        if (StringUtils.isEmpty(refreshToken)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !StringUtils.isEmpty(refreshToken);
     }
 
     /**
@@ -107,11 +100,7 @@ public class Configuration {
      * @return
      */
     public boolean checkAccessToken() {
-        if (StringUtils.isEmpty(accessToken)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !StringUtils.isEmpty(accessToken);
     }
 
     /**
@@ -120,7 +109,7 @@ public class Configuration {
      * @return
      */
     public boolean checkAuthCode() {
-        return !org.apache.commons.lang3.StringUtils.isBlank(authCode);
+        return !StringUtils.isBlank(authCode);
     }
 
     /**
