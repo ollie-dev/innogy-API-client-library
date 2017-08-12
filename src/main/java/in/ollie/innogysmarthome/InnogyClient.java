@@ -575,21 +575,6 @@ public class InnogyClient {
 
         handleResponseErrors(response);
 
-        // JsonArray responseArray = JSONResponseHandler.toJsonArray(response);
-        // if (JSONResponseHandler.checkResponse(responseArray)) {
-        // JsonArray array = responseArray.getAsJsonArray();
-        //
-        // List<Device> deviceList = new LinkedList<Device>();
-        // for (int i = 0; i < array.size(); i++) {
-        // if (array.get(i) instanceof JsonObject) {
-        // deviceList.add(new Device((JsonObject) array.get(i)));
-        // }
-        // }
-        // return deviceList;
-        // }
-        // logger.debug("empty devicelist");
-        // return new LinkedList<Device>();
-
         Device[] deviceList = response.parseAs(Device[].class);
         List<Device> devices = Arrays.asList(deviceList);
 

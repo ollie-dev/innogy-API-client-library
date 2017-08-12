@@ -136,33 +136,6 @@ public class Device extends ConfigPropertyList {
      */
     private boolean batteryPowered = false;
 
-    // public Device() {
-    // }
-    //
-    // public Device(JsonObject object) {
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_ID.getKey()) != null) {
-    // this.id = object.get(JSONApiResponseKeysEnum.DEVICE_ID.getKey()).getAsString();
-    // }
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_MANUFACTURER.getKey()) != null) {
-    // this.manufacturer = object.get(JSONApiResponseKeysEnum.DEVICE_MANUFACTURER.getKey()).getAsString();
-    // }
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_VERSION.getKey()) != null) {
-    // this.version = object.get(JSONApiResponseKeysEnum.DEVICE_VERSION.getKey()).getAsString();
-    // }
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_PRODUCT.getKey()) != null) {
-    // this.product = object.get(JSONApiResponseKeysEnum.DEVICE_PRODUCT.getKey()).getAsString();
-    // }
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_SERIALNUMBER.getKey()) != null) {
-    // this.serialnumber = object.get(JSONApiResponseKeysEnum.DEVICE_SERIALNUMBER.getKey()).getAsString();
-    // }
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_DESC.getKey()) != null) {
-    // this.desc = object.get(JSONApiResponseKeysEnum.DEVICE_DESC.getKey()).getAsString();
-    // }
-    // if (object.get(JSONApiResponseKeysEnum.DEVICE_TYPE.getKey()) != null) {
-    // this.type = object.get(JSONApiResponseKeysEnum.DEVICE_TYPE.getKey()).getAsString();
-    // }
-    // }
-
     /**
      * @return the id
      */
